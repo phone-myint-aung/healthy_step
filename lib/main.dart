@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
+import 'package:healthy_step/pages/splash_page.dart';
 import 'package:healthy_step/router/router.gr.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SplashPage());
 }
 
 class MyApp extends StatelessWidget {

@@ -36,54 +36,61 @@ class _FormPageState extends State<FormPage> {
                   ],
                 ),
               ),
-              TextFieldWithText(),
-              TextFieldWithText(),
-              TextFieldWithText(),
-              MaleFemaleSelector(),
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                child: Row(
+              Form(
+                child: Column(
                   children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          AutoRouter.of(context).push(MainRoute());
-                        },
-                        child: Center(
-                            child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                    TextFieldWithText(),
+                    TextFieldWithText(),
+                    TextFieldWithText(),
+                    MaleFemaleSelector(),
+                    Container(
+                      margin: EdgeInsets.only(top: 30),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () {
+                                AutoRouter.of(context).push(MainRoute());
+                              },
+                              child: Center(
+                                  child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
+                            ),
                           ),
-                        )),
+                          SizedBox(width: 30),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                child: Text(
+                                  'Confirm',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(35),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(width: 30),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: Text(
-                            'Confirm',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -132,7 +139,10 @@ class MaleFemaleSelector extends StatelessWidget {
 }
 
 class GenderButton extends StatelessWidget {
-  const GenderButton(this.icon, this.text, this.iconColor,{
+  const GenderButton(
+    this.icon,
+    this.text,
+    this.iconColor, {
     Key? key,
   }) : super(key: key);
   final IconData icon;
