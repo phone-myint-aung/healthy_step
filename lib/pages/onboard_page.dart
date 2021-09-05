@@ -49,7 +49,7 @@ class OnboardPage extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               child: Image.asset(
-                'images/onboard1.png',
+                'assets/images/onboard1.png',
                 fit: BoxFit.fill,
               ),
             ),
@@ -76,7 +76,7 @@ class OnboardPage extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               child: Image.asset(
-                'images/onboard2.png',
+                'assets/images/onboard2.png',
                 fit: BoxFit.fill,
               ),
             ),
@@ -103,7 +103,7 @@ class OnboardPage extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               child: Image.asset(
-                'images/onboard3.png',
+                'assets/images/onboard3.png',
                 fit: BoxFit.fill,
               ),
             ),

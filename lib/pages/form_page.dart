@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/router/router.gr.dart';
 
 class FormPage extends StatefulWidget {
@@ -16,85 +17,87 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            children: [
-              Container(
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: 50,
-                    ),
-                    Icon(
-                      Icons.add,
-                      color: Colors.green,
-                      size: 35,
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              children: [
+                Container(
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: 50,
+                      ),
+                      Icon(
+                        Icons.add,
+                        color: Colors.green,
+                        size: 35,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Form(
-                child: Column(
-                  children: [
-                    TextFieldWithText(),
-                    TextFieldWithText(),
-                    TextFieldWithText(),
-                    MaleFemaleSelector(),
-                    Container(
-                      margin: EdgeInsets.only(top: 30),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextButton(
-                              onPressed: () {
-                                AutoRouter.of(context).push(MainRoute());
-                              },
-                              child: Center(
-                                  child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                            ),
-                          ),
-                          SizedBox(width: 30),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                child: Text(
-                                  'Confirm',
+                Form(
+                  child: Column(
+                    children: [
+                      TextFieldWithText(),
+                      TextFieldWithText(),
+                      TextFieldWithText(),
+                      MaleFemaleSelector(),
+                      Container(
+                        margin: EdgeInsets.only(top: 30),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () {
+                                  AutoRouter.of(context).push(MainRoute());
+                                },
+                                child: Center(
+                                    child: Text(
+                                  'Cancel',
                                   style: TextStyle(
                                     fontSize: 30,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ),
+                                )),
                               ),
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(35),
+                            ),
+                            SizedBox(width: 30),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
+                                  child: Text(
+                                    'Confirm',
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(35),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -219,6 +222,7 @@ class TextFieldWithText extends StatelessWidget {
                       border: InputBorder.none,
                       hintStyle: TextStyle(fontSize: 24),
                     ),
+                    cursorColor: customBlueColor,
                   ),
                 ),
                 (true) ? DrowdownMatrix() : Container(),

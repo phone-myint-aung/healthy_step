@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
+import 'package:healthy_step/pages/food_page.dart';
 import 'package:healthy_step/pages/home_page.dart';
 import 'package:healthy_step/pages/profile_page.dart';
 import 'package:healthy_step/pages/report_page.dart';
@@ -17,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   final _screens = [
     HomePage(),
     ReportPage(),
-    ProfilePage(),
+    FoodPage(),
     ProfilePage(),
   ];
   @override

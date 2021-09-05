@@ -36,7 +36,8 @@ class GraphWithContainer extends StatelessWidget {
   const GraphWithContainer({
     Key? key,
   }) : super(key: key);
-
+  // final String titleText;
+  // final List<FlSpot> graphData;
   @override
   Widget build(BuildContext context) {
     return Container(

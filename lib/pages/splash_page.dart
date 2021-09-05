@@ -10,7 +10,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: AnimatedSplashScreen(
-        splash: Image.asset('images/AppLogo.png'),
+        splash: Image.asset('assets/images/AppLogo.png'),
         nextScreen: OnboardPage(),
         backgroundColor: customBackgroundColor,
         splashTransition: SplashTransition.rotationTransition,
