@@ -29,6 +29,8 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^9.1.0
   introduction_screen: ^2.1.0
+  pedometer: ^3.0.0
+  percent_indicator: ^3.0.1
   syncfusion_flutter_gauges: ^19.2.57
 
 dev_dependencies:

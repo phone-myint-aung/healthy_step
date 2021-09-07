@@ -9,6 +9,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Healthy Step",
       home: AnimatedSplashScreen(
         splash: Image.asset('assets/images/AppLogo.png'),
         nextScreen: OnboardPage(),
