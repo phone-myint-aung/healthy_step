@@ -12,6 +12,7 @@ import '../pages/home_page.dart' as _i4;
 import '../pages/main_page.dart' as _i3;
 import '../pages/profile_page.dart' as _i6;
 import '../pages/report_page.dart' as _i5;
+import '../pages/sign_in.dart' as _i8;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
@@ -43,6 +44,11 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (_) {
           return const _i7.FormPage();
+        }),
+    SignInRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i8.SignInPage();
         })
   };
 
@@ -52,7 +58,8 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(HomeRoute.name, path: '/home-page'),
         _i1.RouteConfig(ReportRoute.name, path: '/report-page'),
         _i1.RouteConfig(ProfileRoute.name, path: '/profile-page'),
-        _i1.RouteConfig(FormRoute.name, path: '/form-page')
+        _i1.RouteConfig(FormRoute.name, path: '/form-page'),
+        _i1.RouteConfig(SignInRoute.name, path: '/sign-in-page')
       ];
 }
 
@@ -84,4 +91,10 @@ class FormRoute extends _i1.PageRouteInfo {
   const FormRoute() : super(name, path: '/form-page');
 
   static const String name = 'FormRoute';
+}
+
+class SignInRoute extends _i1.PageRouteInfo {
+  const SignInRoute() : super(name, path: '/sign-in-page');
+
+  static const String name = 'SignInRoute';
 }

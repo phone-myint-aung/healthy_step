@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
-import 'package:healthy_step/main.dart';
+import 'package:healthy_step/pages/sign_in.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardPage extends StatelessWidget {
+class OnboardPage extends StatefulWidget {
   const OnboardPage({Key? key}) : super(key: key);
+
+  @override
+  _OnboardPageState createState() => _OnboardPageState();
+}
+
+class _OnboardPageState extends State<OnboardPage> {
+  late final prefs;
+  @override
+  void initState() { 
+    super.initState();
+    startPrefences();
+  }
+  Future<void> startPrefences() async{
+    prefs = await SharedPreferences.getInstance();
+  }
+  // TODO: fasle
+  Future<void> setBoolOnBoardScreen() async {
+    await prefs.setBool('isOnboardScreen', true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +49,7 @@ class OnboardPage extends StatelessWidget {
           activeSize: Size.square(12),
           activeColor: customBlueColor,
           color: customContainerColor,
-        ),  
+        ),
         controlsMargin: EdgeInsets.only(bottom: 30),
         showSkipButton: true,
         showDoneButton: true,
@@ -38,10 +58,16 @@ class OnboardPage extends StatelessWidget {
         skip: Text('Skip', style: TextStyle(fontSize: 22)),
         done: Text('Continue', style: TextStyle(fontSize: 22)),
         globalBackgroundColor: customBackgroundColor,
-        onSkip: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyApp())),
-        onDone: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyApp())),
+        onSkip: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SignInPage()));
+          setBoolOnBoardScreen();
+        },
+        onDone: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SignInPage()));
+          setBoolOnBoardScreen();
+        },
         pages: [
           PageViewModel(
             decoration: pageDecoration,

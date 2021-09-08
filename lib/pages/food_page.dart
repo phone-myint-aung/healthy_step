@@ -65,19 +65,19 @@ class FoodPage extends StatelessWidget {
               MealCategory(
                 text: 'Breakfast',
                 icon: CustomIcons.breakfast,
-                iconColor: Colors.yellow,
+                iconColor: Color(0xFFFBC12D),
               ),
               MealScrollView(breakfast),
               MealCategory(
                 text: 'Lunch',
-                icon: CustomIcons.lunch,
+                icon: Icons.local_restaurant,
                 iconColor: Colors.yellow,
               ),
               MealScrollView(lunch),
               MealCategory(
                 text: 'Dinner',
                 icon: CustomIcons.dinner,
-                iconColor: Colors.yellow,
+                iconColor: customGreenColor,
               ),
               MealScrollView(dinner),
               SizedBox(height: 24),
@@ -90,7 +90,8 @@ class FoodPage extends StatelessWidget {
 }
 
 class MealScrollView extends StatelessWidget {
-  const MealScrollView(this.meals,{
+  const MealScrollView(
+    this.meals, {
     Key? key,
   }) : super(key: key);
   final List<Meal> meals;
@@ -128,7 +129,7 @@ class MealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 230,
-      width: 170,
+      width: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(35),
         color: customContainerColor,
@@ -145,7 +146,7 @@ class MealCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -153,15 +154,13 @@ class MealCard extends StatelessWidget {
                 Text(
                   '${meal.title}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  padding: EdgeInsets.only(left: 32, bottom: 12, top: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,

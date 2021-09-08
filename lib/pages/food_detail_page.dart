@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
+import 'package:healthy_step/models/lists.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class FoodInfoPage extends StatelessWidget {

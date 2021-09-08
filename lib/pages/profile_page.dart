@@ -2,11 +2,50 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
+import 'package:healthy_step/models/user_model.dart';
 import 'package:healthy_step/router/router.gr.dart';
+import 'package:hive/hive.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'dart:math';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late Box<UserName> nameBox;
+  late UserName user;
+  String calculateBMI(UserName name) {
+    if (user.isSIUnit) {
+      return (user.weight / pow((user.height / 100), 2)).toStringAsFixed(1);
+    }
+    return ((user.weight * 0.45) / pow((user.height * 0.3), 2))
+        .toStringAsFixed(1);
+  }
+
+  String checkCondition(String bmi) {
+    double _bmi = double.parse(bmi);
+    if (_bmi >= 0 && _bmi < 18.5)
+      return 'Too Thin';
+    else if (_bmi >= 18.5 && _bmi < 25)
+      return 'Normal';
+    else if (_bmi >= 25 && _bmi < 30)
+      return 'Fat';
+    else if (_bmi >= 30)
+      return 'Too Fat';
+    else
+      return ' ';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameBox = Hive.box<UserName>('NameBox');
+    user = nameBox.getAt(0) as UserName;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Steven',
+                        user.name,
                         style: TextStyle(fontSize: 36),
                       ),
                       SizedBox(width: 5),
@@ -66,6 +105,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(height: 5),
                 ],
               ),
             ),
@@ -88,7 +128,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SizedBox(width: 15),
                   Text(
-                    '100',
+                    user.weight.toString(),
                     style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                   ),
                   Row(
@@ -96,7 +136,7 @@ class ProfilePage extends StatelessWidget {
                     textBaseline: TextBaseline.ideographic,
                     children: [
                       Text(
-                        'kg',
+                        (user.isSIUnit) ? 'kg' : 'lbs',
                         style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.right,
                       ),
@@ -135,7 +175,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   SizedBox(width: 15),
                   Text(
-                    '100',
+                    user.height.toString(),
                     style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                   ),
                   Row(
@@ -143,7 +183,7 @@ class ProfilePage extends StatelessWidget {
                     textBaseline: TextBaseline.ideographic,
                     children: [
                       Text(
-                        'cm',
+                        (user.isSIUnit) ? 'cm' : 'ft',
                         style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.right,
                       ),
@@ -183,18 +223,18 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        '24.5',
+                        calculateBMI(user),
                         style: TextStyle(
                           fontSize: 42,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        'Healthy',
+                        checkCondition(calculateBMI(user)),
                         style: TextStyle(fontSize: 24),
                       ),
                       SizedBox(height: 16),
-                      BmiGraph(),
+                      BmiGraph(calculateBMI(user)),
                     ],
                   ),
                 ],
@@ -208,10 +248,11 @@ class ProfilePage extends StatelessWidget {
 }
 
 class BmiGraph extends StatelessWidget {
-  const BmiGraph({
+  const BmiGraph(
+    this.bmi, {
     Key? key,
   }) : super(key: key);
-
+  final String bmi;
   @override
   Widget build(BuildContext context) {
     return SfLinearGauge(
@@ -252,7 +293,7 @@ class BmiGraph extends StatelessWidget {
       ],
       markerPointers: [
         LinearWidgetPointer(
-          value: 20,
+          value: double.parse(bmi),
           child: Container(
             width: 7,
             height: 50,
@@ -261,7 +302,7 @@ class BmiGraph extends StatelessWidget {
           position: LinearElementPosition.outside,
         ),
         LinearWidgetPointer(
-          value: 20,
+          value: double.parse(bmi),
           child: Container(
             width: 7,
             height: 15,

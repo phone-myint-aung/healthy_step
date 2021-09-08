@@ -4,6 +4,7 @@ import 'package:healthy_step/pages/home_page.dart';
 import 'package:healthy_step/pages/main_page.dart';
 import 'package:healthy_step/pages/profile_page.dart';
 import 'package:healthy_step/pages/report_page.dart';
+import 'package:healthy_step/pages/sign_in.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -13,6 +14,7 @@ import 'package:healthy_step/pages/report_page.dart';
     AutoRoute(page: ReportPage),
     AutoRoute(page: ProfilePage),
     AutoRoute(page: FormPage),
+    AutoRoute(page: SignInPage),
   ],
 )
 class $AppRouter {}

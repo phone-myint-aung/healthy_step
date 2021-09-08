@@ -106,7 +106,7 @@ List<Meal> dinner = [
     bgImage: "assets/images/greensalad.jpg",
   ),
   Meal(
-    title: "Hasselback Chicken",
+    title: "Hasselback ",
     calories: 355,
     time: 50,
     image: "assets/images/hasselback.jpg",

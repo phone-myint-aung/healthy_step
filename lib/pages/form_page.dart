@@ -76,32 +76,30 @@ class _FormPageState extends State<FormPage> {
                               color: Color(0xFF304878),
                               borderRadius: BorderRadius.circular(35),
                             ),
-                            child: Expanded(
-                              child: TextField(
-                                controller: nameController,
-                                keyboardType: TextInputType.name,
-                                textCapitalization: TextCapitalization.words,
-                                style: TextStyle(fontSize: 24),
-                                decoration: InputDecoration(
-                                  hintText: 'Enter your name',
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(fontSize: 24),
-                                  suffixIcon: nameController.text.isEmpty
-                                      ? Container(
-                                          width: 0,
-                                        )
-                                      : IconButton(
-                                          icon: Icon(
-                                            Icons.close,
-                                            color: customRedColor,
-                                            size: 25,
-                                          ),
-                                          onPressed: () =>
-                                              nameController.clear(),
+                            child: TextField(
+                              controller: nameController,
+                              keyboardType: TextInputType.name,
+                              textCapitalization: TextCapitalization.words,
+                              style: TextStyle(fontSize: 24),
+                              decoration: InputDecoration(
+                                hintText: 'Enter your name',
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(fontSize: 24),
+                                suffixIcon: nameController.text.isEmpty
+                                    ? Container(
+                                        width: 0,
+                                      )
+                                    : IconButton(
+                                        icon: Icon(
+                                          Icons.close,
+                                          color: customRedColor,
+                                          size: 25,
                                         ),
-                                ),
-                                cursorColor: customBlueColor,
+                                        onPressed: () =>
+                                            nameController.clear(),
+                                      ),
                               ),
+                              cursorColor: customBlueColor,
                             ),
                           ),
                         ],
