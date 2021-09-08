@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_step/constants/colors.dart';
+import 'package:healthy_step/models/user_model.dart';
 import 'package:healthy_step/router/router.gr.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({
@@ -13,10 +14,16 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
+  late Box<UserName> nameBox;
   TextEditingController nameController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  bool isSI = true;
+  bool isMale = true;
   @override
   void initState() {
     super.initState();
+    nameBox = Hive.box<UserName>('NameBox');
     nameController.addListener(() => setState(() {}));
   }
 
@@ -87,27 +94,174 @@ class _FormPageState extends State<FormPage> {
                                 hintStyle: TextStyle(fontSize: 24),
                                 suffixIcon: nameController.text.isEmpty
                                     ? Container(
-                                        width: 0,
+                                        child: Container(width: 0),
                                       )
                                     : IconButton(
                                         icon: Icon(
                                           Icons.close,
-                                          color: customRedColor,
+                                          color: Colors.red,
                                           size: 25,
                                         ),
-                                        onPressed: () =>
-                                            nameController.clear(),
+                                        onPressed: () => nameController.clear(),
                                       ),
                               ),
-                              cursorColor: customBlueColor,
+                              cursorColor: Colors.blue,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    TextFieldForUnit(),
-                    TextFieldForUnit(),
-                    MaleFemaleSelector(),
+                    Container(
+                      margin: EdgeInsets.only(top: 18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 16),
+                            child: Text(
+                              'Unit',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSI = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 16),
+                                      decoration: BoxDecoration(
+                                        color: (isSI)
+                                            ? Color(0xFF304878)
+                                            : Color(0xFF304878)
+                                                .withOpacity(0.4),
+                                        borderRadius: BorderRadius.circular(35),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'kg/cm',
+                                          style: TextStyle(fontSize: 24),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 20),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSI = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 16),
+                                      decoration: BoxDecoration(
+                                        color: isSI
+                                            ? Color(0xFF304878).withOpacity(0.4)
+                                            : Color(0xFF304878),
+                                        borderRadius: BorderRadius.circular(35),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'lbs/ft',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                              child: TextFieldForUnit(weightController,
+                                  'Weight', (isSI) ? 'kg' : 'lbs')),
+                          SizedBox(width: 20),
+                          Flexible(
+                              child: TextFieldForUnit(heightController,
+                                  'Height', (isSI) ? 'cm' : 'ft')),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 18),
+                            child: Text(
+                              'Select Gender',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isMale = true;
+                                    });
+                                  },
+                                  child: GenderButton(
+                                      Icons.male,
+                                      'Male',
+                                      Colors.blue,
+                                      (isMale)
+                                          ? Color(0xFF304878)
+                                          : Color(0xFF304878).withOpacity(0.4)),
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Flexible(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isMale = false;
+                                    });
+                                  },
+                                  child: GenderButton(
+                                    Icons.female,
+                                    'Female',
+                                    Colors.pink,
+                                    (isMale)
+                                        ? Color(0xFF304878).withOpacity(0.4)
+                                        : Color(0xFF304878),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 30),
                       child: Row(
@@ -131,7 +285,37 @@ class _FormPageState extends State<FormPage> {
                           SizedBox(width: 30),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                if (nameController.text.isNotEmpty &&
+                                    weightController.text.isNotEmpty &&
+                                    heightController.text.isNotEmpty) {
+                                  if (double.tryParse(weightController.text.toString()) ==
+                                          null ||
+                                      double.tryParse(heightController.text.toString()) ==
+                                          null) {
+                                    setState(() {
+                                      weightController.clear();
+                                      heightController.clear();
+                                    });
+                                    print(
+                                        'weight and height field contain some character');
+                                  } else {
+                                    await nameBox.put(
+                                      0,
+                                      UserName()
+                                        ..name = nameController.text
+                                        ..weight =
+                                            double.parse(weightController.text)
+                                        ..height =
+                                            double.parse(heightController.text)
+                                        ..isSIUnit = isSI
+                                        ..isMale = isMale,
+                                    );
+                                   AutoRouter.of(context).push(MainRoute()); 
+                                  }
+                                } else
+                                  print('fill all field');
+                              },
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 12),
@@ -167,35 +351,38 @@ class _FormPageState extends State<FormPage> {
   }
 }
 
-class MaleFemaleSelector extends StatelessWidget {
-  const MaleFemaleSelector({
+class GenderButton extends StatelessWidget {
+  const GenderButton(
+    this.icon,
+    this.text,
+    this.iconColor,
+    this.containerColor, {
     Key? key,
   }) : super(key: key);
-
+  final IconData icon;
+  final String text;
+  final Color iconColor;
+  final Color containerColor;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: EdgeInsets.symmetric(vertical: 16),
+      decoration: BoxDecoration(
+        color: containerColor,
+        borderRadius: BorderRadius.circular(35),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            padding: EdgeInsets.only(left: 18),
-            child: Text(
-              'Select Gender',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+          Icon(
+            icon,
+            size: 40,
+            color: iconColor,
           ),
-          SizedBox(height: 12),
-          Row(
-            children: [
-              GenderButton(Icons.male, 'Male', Colors.blue),
-              SizedBox(width: 20),
-              GenderButton(Icons.female, 'Female', Colors.pink),
-            ],
+          SizedBox(width: 5),
+          Text(
+            text,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -203,50 +390,21 @@ class MaleFemaleSelector extends StatelessWidget {
   }
 }
 
-class GenderButton extends StatelessWidget {
-  const GenderButton(
-    this.icon,
-    this.text,
-    this.iconColor, {
+class TextFieldForUnit extends StatefulWidget {
+  const TextFieldForUnit(
+    this.controller,
+    this.title,
+    this.hintText, {
     Key? key,
   }) : super(key: key);
-  final IconData icon;
-  final String text;
-  final Color iconColor;
+  final TextEditingController controller;
+  final String title;
+  final String hintText;
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16),
-        decoration: BoxDecoration(
-          color: Color(0xFF304878),
-          borderRadius: BorderRadius.circular(35),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 40,
-              color: iconColor,
-            ),
-            SizedBox(width: 5),
-            Text(
-              text,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  _TextFieldForUnitState createState() => _TextFieldForUnitState();
 }
 
-class TextFieldForUnit extends StatelessWidget {
-  const TextFieldForUnit({
-    Key? key,
-  }) : super(key: key);
-
+class _TextFieldForUnitState extends State<TextFieldForUnit> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -257,7 +415,7 @@ class TextFieldForUnit extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(left: 16),
             child: Text(
-              'Name',
+              widget.title,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w500,
@@ -274,62 +432,23 @@ class TextFieldForUnit extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  flex: 5,
+                Expanded(
                   child: TextField(
+                    controller: widget.controller,
                     keyboardType: TextInputType.number,
                     style: TextStyle(fontSize: 24),
                     decoration: InputDecoration(
-                      hintText: 'Enter your name',
+                      hintText: widget.hintText,
                       border: InputBorder.none,
                       hintStyle: TextStyle(fontSize: 24),
                     ),
-                    cursorColor: customBlueColor,
+                    cursorColor: Colors.blue,
                   ),
                 ),
-                DrowdownMatrix(),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DrowdownMatrix extends StatefulWidget {
-  const DrowdownMatrix({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _DrowdownMatrixState createState() => _DrowdownMatrixState();
-}
-
-class _DrowdownMatrixState extends State<DrowdownMatrix> {
-  List<String> list = ['kg', 'lbs'];
-  String dropdownValue = 'kg';
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: Icon(Icons.arrow_drop_down),
-        iconSize: 24,
-        dropdownColor: Color(0xFF304878),
-        isExpanded: true,
-        style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(.6)),
-        items: list.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        onChanged: (newString) {
-          setState(() {
-            dropdownValue = newString!;
-          });
-        },
       ),
     );
   }

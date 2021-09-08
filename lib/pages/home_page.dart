@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
+import 'package:pedometer/pedometer.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +14,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isStart = false;
+  late Stream<StepCount> _stepCountStream;
+  String steps = '0';
+  @override
+  void initState() {
+    initPedometer();
+    super.initState();
+  }
+
+  // TODO: Pedometer
+  void initPedometer() {
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream.listen(onStepCount).onError(onStepCountError);
+  }
+
+  void onStepCount(event) {
+    print(event.steps);
+    setState(() {
+      steps = event.steps.toString();
+    });
+  }
+
+  void onStepCountError(error) {
+    print('onStepCountError: $error');
+    setState(() {
+      steps = '0';
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                       pointers: [
                         RangePointer(
                           width: 30,
-                          value: 2000,
+                          value: double.parse(steps),
                           cornerStyle: CornerStyle.startCurve,
                           color: customGreenColor,
                         ),
@@ -88,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white,
                             ),
                           ),
-                          value: 2000,
+                          value: double.parse(steps),
                         ),
                       ],
                       annotations: [
@@ -98,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                '2000',
+                                steps,
                                 style: TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.bold,

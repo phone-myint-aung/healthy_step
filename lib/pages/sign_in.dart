@@ -266,21 +266,6 @@ class _SignInPageState extends State<SignInPage> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Center(
-                                  child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                            ),
-                          ),
-                          SizedBox(width: 30),
-                          Expanded(
                             child: ElevatedButton(
                               onPressed: () async {
                                 // TODO: button pressed
