@@ -291,6 +291,10 @@ class _SignInPageState extends State<SignInPage> {
                                           null ||
                                       double.tryParse(heightController.text.toString()) ==
                                           null) {
+                                    setState(() {
+                                      weightController.clear();
+                                      heightController.clear();
+                                    });
                                     print(
                                         'weight and height field contain some character');
                                   } else {
