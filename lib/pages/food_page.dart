@@ -118,7 +118,7 @@ class MealScrollView extends StatelessWidget {
     );
   }
 }
-
+// ToDo make guesture onTap
 class MealCard extends StatelessWidget {
   const MealCard(
     this.meal, {

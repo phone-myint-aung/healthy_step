@@ -78,6 +78,7 @@ class _HomePageState extends State<HomePage> {
       totalSteps = 0;
       setTotalSteps(totalSteps);
     }
+    // TODO: someLogic error
     if (int.parse(getTodayDate()) > savedDate) {
       setTotalSteps(event.steps);
       stepBox.put(savedDate, DailyStep()..step = todayStep);
@@ -239,9 +240,9 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ContainerWithThreeText(
-                        CustomIcons.distance, customBlueColor, "1.82", "km"),
+                        CustomIcons.distance, customBlueColor, '${(todayStep*0.8).toStringAsPrecision(2)}', "km"),
                     ContainerWithThreeText(
-                        CustomIcons.calorie, Color(0xFFFF9641), "824", "kcal"),
+                        CustomIcons.calorie, Color(0xFFFF9641), '${(todayStep*0.04).toStringAsPrecision(2)}', "cal"),
                     ContainerWithThreeText(
                         CustomIcons.time, customRedColor, "1h 20m", "kcal"),
                   ],

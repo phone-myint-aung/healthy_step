@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
+import 'package:healthy_step/models/ingredient.dart';
 import 'package:healthy_step/models/lists.dart';
+import 'package:healthy_step/models/meal.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class FoodInfoPage extends StatelessWidget {
-  const FoodInfoPage({Key? key}) : super(key: key);
+  const FoodInfoPage(this.meal, {Key? key}) : super(key: key);
+  final Meal meal;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class FoodInfoPage extends StatelessWidget {
                         MediaQuery.of(context).size.width, 200),
                   ),
                   image: DecorationImage(
-                    image: AssetImage('images/sand.jpg'),
+                    image: AssetImage(meal.bgImage),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -32,6 +35,7 @@ class FoodInfoPage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        //ToDo: exit
                         print('Icon Pressed');
                       },
                       child: Container(
@@ -61,7 +65,7 @@ class FoodInfoPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(80),
                             image: DecorationImage(
-                              image: AssetImage('images/realfruitsandwich.jpg'),
+                              image: AssetImage(meal.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -76,14 +80,16 @@ class FoodInfoPage extends StatelessWidget {
               margin: EdgeInsets.only(top: 50),
               padding: EdgeInsets.symmetric(horizontal: 140),
               child: Text(
-                'Fruit Sandwich',
+                meal.title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 28, fontWeight: FontWeight.w600, height: 1.2),
               ),
             ),
-            ThreePercentageCircle(listPercentage: [34, 56, 23],),
-            BottomContainer(),
+            ThreePercentageCircle(
+              listPercentage: meal.percentageList,
+            ),
+            BottomContainer(meal),
           ],
         ),
       ),
@@ -92,9 +98,10 @@ class FoodInfoPage extends StatelessWidget {
 }
 
 class BottomContainer extends StatelessWidget {
-  const BottomContainer({
+  const BottomContainer(this.meal,{
     Key? key,
   }) : super(key: key);
+  final Meal meal;
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +121,7 @@ class BottomContainer extends StatelessWidget {
               children: [
                 Text(
                   'Ingredients',
-                  style: TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 20),
                 Container(
@@ -126,8 +132,7 @@ class BottomContainer extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(left: 8),
-                        child: IngredientsCard(
-                            category: demoCategories[index]),
+                        child: IngredientsCard(ingredient: meal.ingredients[index]),
                       );
                     },
                   ),
@@ -142,16 +147,11 @@ class BottomContainer extends StatelessWidget {
               children: [
                 Text(
                   'Recipes',
-                  style: TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 14),
                 Text(
-                  '1. Spread butter and jam.Take two bread slices and spread jam on one and butter on another.\n'
-                  '\n'
-                  '2. Place the fruits.Now slice the fruits as thinly as possible and properly spread on one bread slice. Sprinkle a pinch of salt to balance the flavours.Cover it with another bread slice.\n'
-                  '\n'
-                  '3. Ready to be served.Your fruity sandwich is ready to be served.',
+                  meal.recipe,
                   style: TextStyle(
                     height: 1.5,
                     fontSize: 18.0,
@@ -170,10 +170,10 @@ class BottomContainer extends StatelessWidget {
 
 class IngredientsCard extends StatelessWidget {
   const IngredientsCard({
-    required this.category,
+    required this.ingredient,
     Key? key,
   }) : super(key: key);
-  final Category category;
+  final Ingredient ingredient;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -184,13 +184,13 @@ class IngredientsCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
-              image: AssetImage(category.icon),
+              image: AssetImage(ingredient.imagePath),
               fit: BoxFit.cover,
             ),
           ),
         ),
         Text(
-          category.name,
+          ingredient.imagePath,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 16,
@@ -217,8 +217,10 @@ class ThreePercentageCircle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PercentageWithText(percentage: listPercentage[0], footerText: 'Fats'),
-          PercentageWithText(percentage: listPercentage[1], footerText: 'Protein'),
-          PercentageWithText(percentage: listPercentage[2], footerText: 'Carbon\nhydrate'),
+          PercentageWithText(
+              percentage: listPercentage[1], footerText: 'Protein'),
+          PercentageWithText(
+              percentage: listPercentage[2], footerText: 'Carbon\nhydrate'),
         ],
       ),
     );
