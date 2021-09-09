@@ -31,6 +31,7 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   introduction_screen: ^2.1.0
+  jiffy: ^4.1.0
   pedometer: ^3.0.0
   percent_indicator: ^3.0.1
   shared_preferences: ^2.0.7
@@ -39,9 +40,9 @@ dependencies:
 dev_dependencies:
   auto_route_generator: any
   build_runner: any
-  hive_generator: any
   flutter_test:
     sdk: flutter
+  hive_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

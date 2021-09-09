@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healthy_step/main.dart';
 import 'package:healthy_step/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({
@@ -19,17 +20,28 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController heightController = TextEditingController();
   bool isSI = true;
   bool isMale = true;
+  late final prefs;
   @override
   void initState() {
     super.initState();
     nameBox = Hive.box<UserName>('NameBox');
     nameController.addListener(() => setState(() {}));
+    startPrefences();
   }
 
   @override
   void dispose() {
     nameController.dispose();
     super.dispose();
+  }
+
+  Future<void> startPrefences() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  // TODO: fasle
+  Future<void> setBoolOnBoardScreen() async {
+    await prefs.setBool('isOnboardScreen', false);
   }
 
   @override
@@ -272,9 +284,11 @@ class _SignInPageState extends State<SignInPage> {
                                 if (nameController.text.isNotEmpty &&
                                     weightController.text.isNotEmpty &&
                                     heightController.text.isNotEmpty) {
-                                  if (double.tryParse(weightController.text.toString()) ==
+                                  if (double.tryParse(weightController.text
+                                              .toString()) ==
                                           null ||
-                                      double.tryParse(heightController.text.toString()) ==
+                                      double.tryParse(heightController.text
+                                              .toString()) ==
                                           null) {
                                     setState(() {
                                       weightController.clear();
@@ -294,10 +308,13 @@ class _SignInPageState extends State<SignInPage> {
                                         ..isSIUnit = isSI
                                         ..isMale = isMale,
                                     );
+                                    setBoolOnBoardScreen();
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => MyApp()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MyApp(),
+                                      ),
+                                    );
                                   }
                                 } else
                                   print('fill all field');

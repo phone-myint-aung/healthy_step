@@ -1,8 +1,13 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
+import 'package:healthy_step/models/daily_steps.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,30 +20,80 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isStart = false;
   late Stream<StepCount> _stepCountStream;
-  String steps = '0';
+  int todayStep = 0;
+  late int _todayStep;
+  late int totalSteps;
+  late final prefs;
+  late int savedDate;
+  late Box<DailyStep> stepBox;
   @override
   void initState() {
-    initPedometer();
     super.initState();
+    startPrefences();
+    initPedometer();
   }
 
-  // TODO: Pedometer
-  void initPedometer() {
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(onStepCount).onError(onStepCountError);
-  }
-
-  void onStepCount(event) {
-    print(event.steps);
+  // todo getprefs total steps
+  Future<void> startPrefences() async {
+    print('start preference');
+    prefs = await SharedPreferences.getInstance();
+    totalSteps = prefs.getInt('totalSteps') ?? 0;
+    savedDate = prefs.getInt('savedDate') ?? 20210906;
+    _todayStep = prefs.getInt('todayStep') ?? 0;
     setState(() {
-      steps = event.steps.toString();
+      todayStep = _todayStep;
     });
   }
 
-  void onStepCountError(error) {
-    print('onStepCountError: $error');
+  // todo
+  void getTodaySteps() {
+    todayStep = prefs.getInt('todayStep') ?? 0;
+  }
+
+  Future<void> setTodayStep(int steps) async {
+    await prefs.setInt('todayStep', steps);
+  }
+
+  Future<void> setTotalSteps(int steps) async {
+    await prefs.setInt('totalSteps', steps);
+  }
+
+  Future<void> setSavedDate(int date) async {
+    await prefs.setInt('savedDate', date);
+  }
+
+  String getTodayDate() {
+    return '${Jiffy(DateTime.now()).year}${Jiffy(DateTime.now()).month}${Jiffy(DateTime.now()).day}';
+  }
+
+  void initPedometer() {
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream.listen(onStepCount, onError: _onErrorCounting);
+  }
+
+  // TODO: Pedometer listen function
+  void onStepCount(StepCount event) {
+    print('start counting');
+    if (totalSteps < event.steps) {
+      totalSteps = 0;
+      setTotalSteps(totalSteps);
+    }
+    if (int.parse(getTodayDate()) > savedDate) {
+      setTotalSteps(event.steps);
+      stepBox.put(savedDate, DailyStep()..step = todayStep);
+      setTodayStep(todayStep);
+      getTodaySteps();
+      setSavedDate(int.parse(getTodayDate()));
+    }
     setState(() {
-      steps = '0';
+      if (event.steps > 0) todayStep = event.steps - totalSteps;
+    });
+    setTodayStep(todayStep);
+  }
+
+  void _onErrorCounting(error) {
+    setState(() {
+      getTodayDate();
     });
   }
 
@@ -107,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                       pointers: [
                         RangePointer(
                           width: 30,
-                          value: double.parse(steps),
+                          value: todayStep.toDouble(),
                           cornerStyle: CornerStyle.startCurve,
                           color: customGreenColor,
                         ),
@@ -122,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white,
                             ),
                           ),
-                          value: double.parse(steps),
+                          value: todayStep.toDouble(),
                         ),
                       ],
                       annotations: [
@@ -132,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                steps,
+                                todayStep.toString(),
                                 style: TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.bold,
@@ -166,6 +221,10 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     isStart = !isStart;
                   });
+                  // todo step start count
+                  // (isStart)
+                  //     ? _stepCountStreamSub.resume()
+                  //     : _stepCountStreamSub.pause();
                 },
                 child: (isStart)
                     ? StartPauseButton(

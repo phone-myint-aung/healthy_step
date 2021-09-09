@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/pages/sign_in.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardPage extends StatefulWidget {
   const OnboardPage({Key? key}) : super(key: key);
@@ -12,20 +11,6 @@ class OnboardPage extends StatefulWidget {
 }
 
 class _OnboardPageState extends State<OnboardPage> {
-  late final prefs;
-  @override
-  void initState() { 
-    super.initState();
-    startPrefences();
-  }
-  Future<void> startPrefences() async{
-    prefs = await SharedPreferences.getInstance();
-  }
-  // TODO: fasle
-  Future<void> setBoolOnBoardScreen() async {
-    await prefs.setBool('isOnboardScreen', true);
-  }
-
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(
@@ -61,12 +46,10 @@ class _OnboardPageState extends State<OnboardPage> {
         onSkip: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SignInPage()));
-          setBoolOnBoardScreen();
         },
         onDone: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SignInPage()));
-          setBoolOnBoardScreen();
         },
         pages: [
           PageViewModel(
