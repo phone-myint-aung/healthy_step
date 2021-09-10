@@ -269,7 +269,7 @@ class _FormPageState extends State<FormPage> {
                           Expanded(
                             child: TextButton(
                               onPressed: () {
-                                AutoRouter.of(context).push(MainRoute());
+                                AutoRouter.of(context).push(MainRoute(pageIndex: 3));
                               },
                               child: Center(
                                   child: Text(
@@ -311,7 +311,7 @@ class _FormPageState extends State<FormPage> {
                                         ..isSIUnit = isSI
                                         ..isMale = isMale,
                                     );
-                                   AutoRouter.of(context).push(MainRoute()); 
+                                   AutoRouter.of(context).push(MainRoute(pageIndex: 3)); 
                                   }
                                 } else
                                   print('fill all field');

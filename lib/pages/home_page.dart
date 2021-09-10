@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
 import 'package:healthy_step/models/daily_steps.dart';
+import 'package:healthy_step/router/router.gr.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:pedometer/pedometer.dart';
@@ -133,8 +135,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    CircleAvatar(
-                      radius: 25,
+                    GestureDetector(
+                      onTap: () {
+                        AutoRouter.of(context).push(MainRoute(pageIndex: 3));
+                      },
+                      child: CircleAvatar(
+                        radius: 25,
+                      ),
                     ),
                   ],
                 ),
@@ -240,9 +247,15 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ContainerWithThreeText(
-                        CustomIcons.distance, customBlueColor, '${(todayStep*0.8).toStringAsPrecision(2)}', "km"),
+                        CustomIcons.distance,
+                        customBlueColor,
+                        '${(todayStep * 0.8).toStringAsPrecision(2)}',
+                        "km"),
                     ContainerWithThreeText(
-                        CustomIcons.calorie, Color(0xFFFF9641), '${(todayStep*0.04).toStringAsPrecision(2)}', "cal"),
+                        CustomIcons.calorie,
+                        Color(0xFFFF9641),
+                        '${(todayStep * 0.04).toStringAsPrecision(2)}',
+                        "cal"),
                     ContainerWithThreeText(
                         CustomIcons.time, customRedColor, "1h 20m", "kcal"),
                   ],

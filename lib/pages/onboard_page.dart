@@ -120,14 +120,14 @@ class _OnboardPageState extends State<OnboardPage> {
               width: double.infinity,
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                'Welcome',
+                'Fitness',
                 style: titleTextStyle,
               ),
             ),
             bodyWidget: Container(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Walking is the best exercise.\nKeep walking and keep smiling.',
+                'Fitness training is a combination of regular physical exercises and a healthy diet.',
                 textAlign: TextAlign.left,
                 style: bodyTextStyle,
               ),

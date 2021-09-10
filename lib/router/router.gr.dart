@@ -7,6 +7,8 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
+import '../models/meal.dart' as _i10;
+import '../pages/food_detail_page.dart' as _i9;
 import '../pages/form_page.dart' as _i7;
 import '../pages/home_page.dart' as _i4;
 import '../pages/main_page.dart' as _i3;
@@ -22,8 +24,10 @@ class AppRouter extends _i1.RootStackRouter {
   final Map<String, _i1.PageFactory> pagesMap = {
     MainRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
-        builder: (_) {
-          return const _i3.MainPage();
+        builder: (data) {
+          final args =
+              data.argsAs<MainRouteArgs>(orElse: () => const MainRouteArgs());
+          return _i3.MainPage(pageIndex: args.pageIndex, key: args.key);
         }),
     HomeRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -49,6 +53,12 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (_) {
           return const _i8.SignInPage();
+        }),
+    FoodInfoRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<FoodInfoRouteArgs>();
+          return _i9.FoodInfoPage(args.meal, key: args.key);
         })
   };
 
@@ -59,14 +69,25 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(ReportRoute.name, path: '/report-page'),
         _i1.RouteConfig(ProfileRoute.name, path: '/profile-page'),
         _i1.RouteConfig(FormRoute.name, path: '/form-page'),
-        _i1.RouteConfig(SignInRoute.name, path: '/sign-in-page')
+        _i1.RouteConfig(SignInRoute.name, path: '/sign-in-page'),
+        _i1.RouteConfig(FoodInfoRoute.name, path: '/food-info-page')
       ];
 }
 
-class MainRoute extends _i1.PageRouteInfo {
-  const MainRoute() : super(name, path: '/');
+class MainRoute extends _i1.PageRouteInfo<MainRouteArgs> {
+  MainRoute({int? pageIndex, _i2.Key? key})
+      : super(name,
+            path: '/', args: MainRouteArgs(pageIndex: pageIndex, key: key));
 
   static const String name = 'MainRoute';
+}
+
+class MainRouteArgs {
+  const MainRouteArgs({this.pageIndex, this.key});
+
+  final int? pageIndex;
+
+  final _i2.Key? key;
 }
 
 class HomeRoute extends _i1.PageRouteInfo {
@@ -97,4 +118,21 @@ class SignInRoute extends _i1.PageRouteInfo {
   const SignInRoute() : super(name, path: '/sign-in-page');
 
   static const String name = 'SignInRoute';
+}
+
+class FoodInfoRoute extends _i1.PageRouteInfo<FoodInfoRouteArgs> {
+  FoodInfoRoute({required _i10.Meal meal, _i2.Key? key})
+      : super(name,
+            path: '/food-info-page',
+            args: FoodInfoRouteArgs(meal: meal, key: key));
+
+  static const String name = 'FoodInfoRoute';
+}
+
+class FoodInfoRouteArgs {
+  const FoodInfoRouteArgs({required this.meal, this.key});
+
+  final _i10.Meal meal;
+
+  final _i2.Key? key;
 }

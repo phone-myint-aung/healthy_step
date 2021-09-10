@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
 import 'package:healthy_step/models/meal.dart';
 import 'package:healthy_step/models/meal_data.dart';
+import 'package:healthy_step/router/router.gr.dart';
 
 class FoodPage extends StatelessWidget {
   const FoodPage({Key? key}) : super(key: key);
@@ -109,7 +111,11 @@ class MealScrollView extends StatelessWidget {
               meals.length,
               (index) => Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: MealCard(meals[index]),
+                child: GestureDetector(
+                  onTap: () => AutoRouter.of(context)
+                      .push(FoodInfoRoute(meal: meals[index])),
+                  child: MealCard(meals[index]),
+                ),
               ),
             ),
           ],
@@ -118,7 +124,8 @@ class MealScrollView extends StatelessWidget {
     );
   }
 }
-// ToDo make guesture onTap
+
+// TODO: make guesture onTap
 class MealCard extends StatelessWidget {
   const MealCard(
     this.meal, {

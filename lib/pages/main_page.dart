@@ -7,8 +7,8 @@ import 'package:healthy_step/pages/profile_page.dart';
 import 'package:healthy_step/pages/report_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
-
+  const MainPage({this.pageIndex, Key? key}) : super(key: key);
+  final int? pageIndex;
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -21,6 +21,12 @@ class _MainPageState extends State<MainPage> {
     FoodPage(),
     ProfilePage(),
   ];
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.pageIndex ?? 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

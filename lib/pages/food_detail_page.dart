@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/models/ingredient.dart';
-import 'package:healthy_step/models/lists.dart';
 import 'package:healthy_step/models/meal.dart';
+import 'package:healthy_step/router/router.gr.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class FoodInfoPage extends StatelessWidget {
@@ -36,7 +37,7 @@ class FoodInfoPage extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         //ToDo: exit
-                        print('Icon Pressed');
+                        AutoRouter.of(context).push(MainRoute(pageIndex: 2)); 
                       },
                       child: Container(
                         margin: EdgeInsets.only(left: 20, top: 20),
@@ -109,7 +110,7 @@ class BottomContainer extends StatelessWidget {
       padding: EdgeInsets.all(24),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: customBackgroundColor,
+        color: customContainerColor,
         borderRadius: BorderRadius.circular(40),
       ),
       child: Column(
@@ -128,7 +129,7 @@ class BottomContainer extends StatelessWidget {
                   height: 95,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: demoCategories.length,
+                    itemCount: meal.ingredients.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(left: 8),
@@ -190,7 +191,7 @@ class IngredientsCard extends StatelessWidget {
           ),
         ),
         Text(
-          ingredient.imagePath,
+          ingredient.name,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 16,
