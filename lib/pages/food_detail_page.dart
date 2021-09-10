@@ -37,7 +37,7 @@ class FoodInfoPage extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         //ToDo: exit
-                        AutoRouter.of(context).push(MainRoute(pageIndex: 2)); 
+                        AutoRouter.of(context).push(MainRoute(pageIndex: 2));
                       },
                       child: Container(
                         margin: EdgeInsets.only(left: 20, top: 20),
@@ -79,12 +79,14 @@ class FoodInfoPage extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(top: 50),
-              padding: EdgeInsets.symmetric(horizontal: 140),
-              child: Text(
-                meal.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 28, fontWeight: FontWeight.w600, height: 1.2),
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Center(
+                child: Text(
+                  meal.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.w600, height: 1.2),
+                ),
               ),
             ),
             ThreePercentageCircle(
@@ -99,7 +101,8 @@ class FoodInfoPage extends StatelessWidget {
 }
 
 class BottomContainer extends StatelessWidget {
-  const BottomContainer(this.meal,{
+  const BottomContainer(
+    this.meal, {
     Key? key,
   }) : super(key: key);
   final Meal meal;
@@ -133,7 +136,8 @@ class BottomContainer extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: EdgeInsets.only(left: 8),
-                        child: IngredientsCard(ingredient: meal.ingredients[index]),
+                        child: IngredientsCard(
+                            ingredient: meal.ingredients[index]),
                       );
                     },
                   ),

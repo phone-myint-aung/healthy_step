@@ -10,14 +10,14 @@ List<Meal> breakfast = [
     bgImage: "assets/images/sand.jpg",
     percentageList: [27, 18, 21],
     ingredients: [
-      Ingredient(name: 'Cream', imagePath: 'images/whippedcream.jpg'),
-      Ingredient(name: 'Mascarpone', imagePath: 'images/mas.jpg'),
-      Ingredient(name: 'Sugar', imagePath: 'images/sugar.jpg'),
-      Ingredient(name: 'Jam', imagePath: 'images/jam.jpg'),
-      Ingredient(name: 'Bread', imagePath: 'images/bread.jpg'),
-      Ingredient(name: 'Stawberries', imagePath: 'images/staw.jpg'),
-      Ingredient(name: 'Kiwi', imagePath: 'images/kiwi.jpg'),
-      Ingredient(name: 'Banana', imagePath: 'images/banana.jpg'),
+      Ingredient(name: 'Cream', imagePath: 'assets/images/whippedcream.jpg'),
+      Ingredient(name: 'Mascar\npone', imagePath: 'assets/images/mas.jpg'),
+      Ingredient(name: 'Sugar', imagePath: 'assets/images/sugar.jpg'),
+      Ingredient(name: 'Jam', imagePath: 'assets/images/jam.jpg'),
+      Ingredient(name: 'Bread', imagePath: 'assets/images/bread.jpg'),
+      Ingredient(name: 'Staw\nberries', imagePath: 'assets/images/staw.jpg'),
+      Ingredient(name: 'Kiwi', imagePath: 'assets/images/kiwi.jpg'),
+      Ingredient(name: 'Banana', imagePath: 'assets/images/banana.jpg'),
     ],
     recipe:
         '1. Spread butter and jam.Take two bread slices and spread jam on one and butter on another.\n'
@@ -34,13 +34,16 @@ List<Meal> breakfast = [
     bgImage: "assets/images/bowl.jpg",
     percentageList: [50, 34, 25],
     ingredients: [
-      Ingredient(name: 'Banana', imagePath: 'images/banana.jpg'),
-      Ingredient(name: 'Stawberries', imagePath: 'images/staw.jpg'),
-      Ingredient(name: 'Rolled Oats', imagePath: 'images/irolledoats.jpg'),
-      Ingredient(name: 'Almond Milk', imagePath: 'images/ialmondmilk.jpg'),
-      Ingredient(name: 'Chia Seeds', imagePath: 'images/ichiaseeds.jpg'),
-      Ingredient(name: 'Nut Butter', imagePath: 'images/inutbutter.jpg'),
-      Ingredient(name: 'Agave Syrup', imagePath: 'images/iagavesyrup.jpg'),
+      Ingredient(name: 'Banana', imagePath: 'assets/images/banana.jpg'),
+      Ingredient(name: 'Staw\nberries', imagePath: 'assets/images/staw.jpg'),
+      Ingredient(
+          name: 'Rolled\nOats', imagePath: 'assets/images/irolledoats.jpg'),
+      Ingredient(
+          name: 'Almond\nMilk', imagePath: 'assets/images/ialmondmilk.jpg'),
+      Ingredient(name: 'Chia\nSeeds', imagePath: 'assets/images/ichiaseeds.jpg'),
+      Ingredient(name: 'Nut\nButter', imagePath: 'assets/images/inutbutter.jpg'),
+      Ingredient(
+          name: 'Agave\nSyrup', imagePath: 'assets/images/iagavesyrup.jpg'),
     ],
     recipe:
         '1. Prepare spiced walnuts: Preheat oven to 350°F. Place walnuts on a baking sheet and toast for 8 minutes, until fragrant. In a small bowl, combine walnuts with cinnamon and salt. Toss to coat, then set aside to cool.\n'
@@ -57,11 +60,12 @@ List<Meal> breakfast = [
     bgImage: "assets/images/rolled.jpg",
     percentageList: [33, 22, 0],
     ingredients: [
-      Ingredient(name: 'Eggs', imagePath: 'images/ieggs.jpg'),
-      Ingredient(name: 'Scallion', imagePath: 'images/iscallion.jpg'),
-      Ingredient(name: 'Carrot', imagePath: 'images/icarrot.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Vegetable Oil', imagePath: 'images/ivegetableoil.jpg'),
+      Ingredient(name: 'Eggs', imagePath: 'assets/images/ieggs.jpg'),
+      Ingredient(name: 'Scallion', imagePath: 'assets/images/iscallion.jpg'),
+      Ingredient(name: 'Carrot', imagePath: 'assets/images/icarrot.jpg'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
+      Ingredient(
+          name: 'Vegetable Oil', imagePath: 'assets/images/ivegetableoil.jpg'),
     ],
     recipe:
         '1. Preheat the pan until it feels hot when you place your hand 2 to 3 inches above the bottom of the pan.\n'
@@ -82,16 +86,19 @@ List<Meal> breakfast = [
     bgImage: "assets/images/pocket.jpg",
     percentageList: [15, 16, 4],
     ingredients: [
-      Ingredient(name: 'Eggs', imagePath: 'images/ieggs.jpg'),
-      Ingredient(name: 'Water', imagePath: 'images/iwater.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Black Pepper', imagePath: 'images/iblackpepper.jpg'),
-      Ingredient(name: 'Butter', imagePath: 'images/ibutter.jpg'),
+      Ingredient(name: 'Eggs', imagePath: 'assets/images/ieggs.jpg'),
+      Ingredient(name: 'Water', imagePath: 'assets/images/iwater.jpg'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
       Ingredient(
-          name: 'Crescent Rolls', imagePath: 'images/icrescentrolls.jpg'),
-      Ingredient(name: 'Deli Ham', imagePath: 'images/ideliham.jpg'),
+          name: 'Black Pepper', imagePath: 'assets/images/iblackpepper.jpg'),
+      Ingredient(name: 'Butter', imagePath: 'assets/images/ibutter.jpg'),
       Ingredient(
-          name: 'Cheddar Cheese', imagePath: 'images/icheddercheese.jpg'),
+          name: 'Crescent Rolls',
+          imagePath: 'assets/images/icrescentrolls.jpg'),
+      Ingredient(name: 'Deli Ham', imagePath: 'assets/images/ideliham.jpg'),
+      Ingredient(
+          name: 'Cheddar Cheese',
+          imagePath: 'assets/images/icheddercheese.jpg'),
     ],
     recipe:
         '1. Preheat oven to 375 degrees F. In a medium bowl, whisk eggs, water, salt, and pepper.\n'
@@ -110,13 +117,18 @@ List<Meal> breakfast = [
     bgImage: "assets/images/cooo.jpg",
     percentageList: [6, 12, 10],
     ingredients: [
-      Ingredient(name: 'Rolled Oats', imagePath: 'images/irolledoats.jpg'),
-      Ingredient(name: 'Pumpkin Pure', imagePath: 'images/ipumpkinpure.jpg'),
-      Ingredient(name: 'Maple Syrup', imagePath: 'images/imaplesyrup.jpg'),
       Ingredient(
-          name: 'Pumpkinpie Spice', imagePath: 'images/ipumpkinpiespice.jpg'),
-      Ingredient(name: 'Cinnamon', imagePath: 'images/icinnamon.jpg'),
-      Ingredient(name: 'Chocolate Chip', imagePath: 'images/ichocochip.jpg'),
+          name: 'Rolled Oats', imagePath: 'assets/images/irolledoats.jpg'),
+      Ingredient(
+          name: 'Pumpkin Pure', imagePath: 'assets/images/ipumpkinpure.jpg'),
+      Ingredient(
+          name: 'Maple Syrup', imagePath: 'assets/images/imaplesyrup.jpeg'),
+      Ingredient(
+          name: 'Pumpkinpie Spice',
+          imagePath: 'assets/images/ipumpkinpiespice.jpg'),
+      Ingredient(name: 'Cinnamon', imagePath: 'assets/images/icinnamon.jpg'),
+      Ingredient(
+          name: 'Chocolate Chip', imagePath: 'assets/images/ichocochip.jpg'),
     ],
     recipe:
         ' 1. Mix all of the ingredients together to form a thick dough. There’s no need to worry about over mixing, just keep working it together until  have a uniform dough.\n'
@@ -136,17 +148,21 @@ List<Meal> lunch = [
     bgImage: "assets/images/ppss.jpg",
     percentageList: [7, 14, 13],
     ingredients: [
-      Ingredient(name: 'Cucumber', imagePath: 'images/icucumber.jpg'),
+      Ingredient(name: 'Cucumber', imagePath: 'assets/images/icucumber.jpg'),
       Ingredient(
-          name: 'Green Bell Pepper', imagePath: 'images/igreenbellpepper.jpg'),
-      Ingredient(name: 'Tomatoes', imagePath: 'images/itomatoes.jpg'),
-      Ingredient(name: 'Black Olive', imagePath: 'images/iblackolive.jpg'),
-      Ingredient(name: 'Salad Seasoning', imagePath: 'images/iseasoning.jpg'),
+          name: 'Green Bell Pepper',
+          imagePath: 'assets/images/igreenbellpepper.jpg'),
+      Ingredient(name: 'Tomatoes', imagePath: 'assets/images/itomatoes.jpg'),
+      Ingredient(
+          name: 'Black Olive', imagePath: 'assets/images/iblackolive.jpg'),
+      Ingredient(
+          name: 'Salad Seasoning', imagePath: 'assets/images/iseasoning.jpg'),
       Ingredient(
           name: 'French Salad Dressing',
-          imagePath: 'images/ifrenchdressing.jpg'),
+          imagePath: 'assets/images/ifrenchdressing.jpg'),
       Ingredient(
-          name: 'Dry Wheat Spaghetti', imagePath: 'images/idryspaghetti.jpg'),
+          name: 'Dry Wheat Spaghetti',
+          imagePath: 'assets/images/idryspaghetti.jpg'),
     ],
     recipe: '1.Cook pasta according to directions on the box.\n'
         '\n'
@@ -162,18 +178,21 @@ List<Meal> lunch = [
     title: "Chickpea Salad",
     calories: 175,
     time: 30,
-    image: "images/chickpea.jpg",
-    bgImage: "images/pea.jpg",
+    image: "assets/images/chickpea.jpg",
+    bgImage: "assets/images/pea.jpg",
     percentageList: [3, 18, 14],
     ingredients: [
-      Ingredient(name: 'Couscous', imagePath: 'images/icouscous.jpg'),
-      Ingredient(name: 'Chickpeas', imagePath: 'images/icanchickpeas.jpg'),
-      Ingredient(name: 'Hot Water', imagePath: 'images/ihotwater.jpg'),
-      Ingredient(name: 'Lemon', imagePath: 'images/ilemon.jpg'),
-      Ingredient(name: 'Red Pepper', imagePath: 'images/iredpepper.jpg'),
-      Ingredient(name: 'Pistachios', imagePath: 'images/ipistachio.jpg'),
-      Ingredient(name: 'Mint Leaves', imagePath: 'images/imintleaves.jpg'),
-      Ingredient(name: 'Greek Yogurt', imagePath: 'images/igreekyogurt.jpg'),
+      Ingredient(name: 'Couscous', imagePath: 'assets/images/icouscous.jpg'),
+      Ingredient(
+          name: 'Chickpeas', imagePath: 'assets/images/icanchickpeas.jpg'),
+      Ingredient(name: 'Hot Water', imagePath: 'assets/images/ihotwater.jpg'),
+      Ingredient(name: 'Lemon', imagePath: 'assets/images/ilemon.jpg'),
+      Ingredient(name: 'Red Pepper', imagePath: 'assets/images/iredpepper.jpg'),
+      Ingredient(name: 'Pistachios', imagePath: 'assets/images/ipistachio.jpg'),
+      Ingredient(
+          name: 'Mint Leaves', imagePath: 'assets/images/imintleaves.jpg'),
+      Ingredient(
+          name: 'Greek Yogurt', imagePath: 'assets/images/igreekyogurt.jpg'),
     ],
     recipe:
         '1. Place chickpeas and cous cous in a bowl and pour the hot water with chicken stock over them.\n'
@@ -192,15 +211,19 @@ List<Meal> lunch = [
     bgImage: "assets/images/eggsalad.jpg",
     percentageList: [86, 12, 2],
     ingredients: [
-      Ingredient(name: 'Eggs', imagePath: 'images/ieggs.jpg'),
-      Ingredient(name: 'Mayonnaise', imagePath: 'images/imayonnaise.jpg'),
-      Ingredient(name: 'Celery', imagePath: 'images/istalkcelery.jpg'),
-      Ingredient(name: 'Onion', imagePath: 'images/ionion.jpg'),
-      Ingredient(name: 'Dill', imagePath: 'images/idill.jpg'),
-      Ingredient(name: 'Dijon Mustard', imagePath: 'images/idijonmustard.jpg'),
-      Ingredient(name: 'Lemon', imagePath: 'images/ilemon.jpg'),
-      Ingredient(name: 'Kosher Salt', imagePath: 'images/ikoshersalt.jpg'),
-      Ingredient(name: 'Black Pepper', imagePath: 'images/iblackpepper.jpg'),
+      Ingredient(name: 'Eggs', imagePath: 'assets/images/ieggs.jpg'),
+      Ingredient(
+          name: 'Mayonnaise', imagePath: 'assets/images/imayonnaise.jpg'),
+      Ingredient(name: 'Celery', imagePath: 'assets/images/istalkcelery.jpg'),
+      Ingredient(name: 'Onion', imagePath: 'assets/images/ionion.jpg'),
+      Ingredient(name: 'Dill', imagePath: 'assets/images/idill.jpg'),
+      Ingredient(
+          name: 'Dijon Mustard', imagePath: 'assets/images/idijonmustard.jpg'),
+      Ingredient(name: 'Lemon', imagePath: 'assets/images/ilemon.jpg'),
+      Ingredient(
+          name: 'Kosher Salt', imagePath: 'assets/images/ikoshersalt.jpg'),
+      Ingredient(
+          name: 'Black Pepper', imagePath: 'assets/images/iblackpepper.jpg'),
     ],
     recipe:
         '1. Cover the eggs with at least 2 inches of water in a medium saucepan and bring to a rolling boil. Remove from the heat, cover and let sit for 10 minutes. Transfer the eggs to a bowl of ice water to cool completely.\n'
@@ -215,13 +238,16 @@ List<Meal> lunch = [
     bgImage: "assets/images/ssaall.jpg",
     percentageList: [19, 8, 5],
     ingredients: [
-      Ingredient(name: 'Vegetable Oil', imagePath: 'images/ivegetableoil.jpg'),
-      Ingredient(name: 'Peanut Butter', imagePath: 'images/ipeanutbutter.jfif'),
-      Ingredient(name: 'Cabbage', imagePath: 'images/icabbage.jpg'),
-      Ingredient(name: 'Red Bell Pepper', imagePath: 'images/iredpepper.jpg'),
-      Ingredient(name: 'Carrot', imagePath: 'images/icarrot.jpg'),
-      Ingredient(name: 'Onion', imagePath: 'images/ionion.jpg'),
-      Ingredient(name: 'Cilantro', imagePath: 'images/icilantro.jpg'),
+      Ingredient(
+          name: 'Vegetable Oil', imagePath: 'assets/images/ivegetableoil.jpg'),
+      Ingredient(
+          name: 'Peanut Butter', imagePath: 'assets/images/ipeanutbutter.jfif'),
+      Ingredient(name: 'Cabbage', imagePath: 'assets/images/icabbage.jpg'),
+      Ingredient(
+          name: 'Red Bell Pepper', imagePath: 'assets/images/iredpepper.jpg'),
+      Ingredient(name: 'Carrot', imagePath: 'assets/images/icarrot.jpg'),
+      Ingredient(name: 'Onion', imagePath: 'assets/images/ionion.jpg'),
+      Ingredient(name: 'Cilantro', imagePath: 'assets/images/icilantro.jpg'),
     ],
     recipe:
         '1. In a medium bowl, whisk together the rice vinegar, oil, peanut butter, soy sauce, brown sugar, ginger, and garlic.\n'
@@ -236,14 +262,16 @@ List<Meal> lunch = [
     bgImage: "assets/images/ranchfrittata.jpg",
     percentageList: [18, 30, 2],
     ingredients: [
-      Ingredient(name: 'Bacon', imagePath: 'images/ibacon.jpg'),
-      Ingredient(name: 'Olive Oil', imagePath: 'images/ioliveoil.jpg'),
-      Ingredient(name: 'Pepper', imagePath: 'images/ipepperflakes.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Black Pepper', imagePath: 'images/iblackpepper.jpg'),
-      Ingredient(name: 'Potatoes', imagePath: 'images/ipotatoes.jpg'),
-      Ingredient(name: 'Eggs', imagePath: 'images/ieggs.jpg'),
-      Ingredient(name: 'Feta Cheese', imagePath: 'images/ifetacheese.jpg'),
+      Ingredient(name: 'Bacon', imagePath: 'assets/images/ibacon.jpg'),
+      Ingredient(name: 'Olive Oil', imagePath: 'assets/images/ioliveoil.jpg'),
+      Ingredient(name: 'Pepper', imagePath: 'assets/images/ipepperflakes.jpg'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
+      Ingredient(
+          name: 'Black Pepper', imagePath: 'assets/images/iblackpepper.jpg'),
+      Ingredient(name: 'Potatoes', imagePath: 'assets/images/ipotatoes.jpg'),
+      Ingredient(name: 'Eggs', imagePath: 'assets/images/ieggs.jpg'),
+      Ingredient(
+          name: 'Feta Cheese', imagePath: 'assets/images/ifetacheese.jpg'),
     ],
     recipe:
         '1. Place bacon and olive oil in a large skillet over medium heat. Cook until bacon is nearly crisp, 5 to 7 minutes. Add peppers; cook and stir over medium heat until softened, about 3 minutes. Remove from heat and drain excess grease from the pan. Season with salt, black pepper, and red pepper flakes; stir to combine.\n'
@@ -265,15 +293,16 @@ List<Meal> dinner = [
     bgImage: "assets/images/savo.jpg",
     percentageList: [26, 58, 5],
     ingredients: [
-      Ingredient(name: 'Butter', imagePath: 'images/ibutter.jpg'),
-      Ingredient(name: 'Shrimp', imagePath: 'images/ishrimp.jpg'),
-      Ingredient(name: 'Dill', imagePath: 'images/idill.jpg'),
-      Ingredient(name: 'Tomatoes', imagePath: 'images/itomatoes.jpg'),
-      Ingredient(name: 'Avogado', imagePath: 'images/iavo.jpg'),
-      Ingredient(name: 'Black Olive', imagePath: 'images/iblackolive.jpg'),
-      Ingredient(name: 'Onion', imagePath: 'images/ionion.jpg'),
-      Ingredient(name: 'Olive Oil', imagePath: 'images/ioliveoil.jpg'),
-      Ingredient(name: 'Lemon', imagePath: 'images/ilemon.jpg'),
+      Ingredient(name: 'Butter', imagePath: 'assets/images/ibutter.jpg'),
+      Ingredient(name: 'Shrimp', imagePath: 'assets/images/ishrimp.jpg'),
+      Ingredient(name: 'Dill', imagePath: 'assets/images/idill.jpg'),
+      Ingredient(name: 'Tomatoes', imagePath: 'assets/images/itomatoes.jpg'),
+      Ingredient(name: 'Avogado', imagePath: 'assets/images/iavo.jpg'),
+      Ingredient(
+          name: 'Black Olive', imagePath: 'assets/images/iblackolive.jpg'),
+      Ingredient(name: 'Onion', imagePath: 'assets/images/ionion.jpg'),
+      Ingredient(name: 'Olive Oil', imagePath: 'assets/images/ioliveoil.jpg'),
+      Ingredient(name: 'Lemon', imagePath: 'assets/images/ilemon.jpg'),
     ],
     recipe:
         '1. Stir together avocadoes, tomatoes, onion, and shrimp in a large bowl. Season to taste with salt and pepper. Stir in lime juice. Serve cold.\n',
@@ -282,17 +311,18 @@ List<Meal> dinner = [
     title: "Turkey Cabbage",
     calories: 195,
     time: 20,
-    image: "images/cabbage.jpg",
-    bgImage: "images/turcab.jpg",
+    image: "assets/images/cabbage.jpg",
+    bgImage: "assets/images/turcab.jpg",
     percentageList: [3, 36, 3],
     ingredients: [
-      Ingredient(name: 'Olive Oil', imagePath: 'images/ioliveoil.jpg'),
-      Ingredient(name: 'Ground Turkey', imagePath: 'images/igroundturkey.jpg'),
-      Ingredient(name: 'Onion', imagePath: 'images/ionion.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Pepper', imagePath: 'images/ipepperflakes.jpg'),
-      Ingredient(name: 'Cabbage', imagePath: 'images/icabbage.jpg'),
-      Ingredient(name: 'Carrot', imagePath: 'images/icarrot.jpg'),
+      Ingredient(name: 'Olive Oil', imagePath: 'assets/images/ioliveoil.jpg'),
+      Ingredient(
+          name: 'Ground Turkey', imagePath: 'assets/images/igroundturkey.jpg'),
+      Ingredient(name: 'Onion', imagePath: 'assets/images/ionion.jpg'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
+      Ingredient(name: 'Pepper', imagePath: 'assets/images/ipepperflakes.jpg'),
+      Ingredient(name: 'Cabbage', imagePath: 'assets/images/icabbage.jpg'),
+      Ingredient(name: 'Carrot', imagePath: 'assets/images/icarrot.jpg'),
     ],
     recipe:
         '1.Heat a dutch oven or large pot over medium-high heat.Add olive oil, ground turkey, onion, garlic, and salt and pepper. Stir occasionally until turkey is cooked through.\n'
@@ -307,15 +337,15 @@ List<Meal> dinner = [
     title: "Zucchini Pasta",
     calories: 215,
     time: 25,
-    image: "images/zupasta.jpg",
-    bgImage: "images/zucchi.jpg",
+    image: "assets/images/zupasta.jpg",
+    bgImage: "assets/images/zucchi.jpg",
     percentageList: [18, 46, 1],
     ingredients: [
-      Ingredient(name: 'Zucchini', imagePath: 'images/izucchini.jpg'),
-      Ingredient(name: 'Olive Oil', imagePath: 'images/ioliveoil.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Dill', imagePath: 'images/idill.jpg'),
-      Ingredient(name: 'Pepper', imagePath: 'images/ipepperflakes.jpg'),
+      Ingredient(name: 'Zucchini', imagePath: 'assets/images/izucchini.jpg'),
+      Ingredient(name: 'Olive Oil', imagePath: 'assets/images/ioliveoil.jpg'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
+      Ingredient(name: 'Dill', imagePath: 'assets/images/idill.jpg'),
+      Ingredient(name: 'Pepper', imagePath: 'assets/images/ipepperflakes.jpg'),
     ],
     recipe:
         '1.Cut the ends from each of the zucchinis and put the zucchini through a zucchini noodle maker.Heat the olive oil or unsalted butter in a large pan.\n'
@@ -332,15 +362,18 @@ List<Meal> dinner = [
     bgImage: "assets/images/saladgr.jpg",
     percentageList: [1, 12, 6],
     ingredients: [
-      Ingredient(name: 'Onion', imagePath: 'images/ionion.jpg'),
-      Ingredient(name: 'Dijon Mustard', imagePath: 'images/idijonmustard.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Pepper', imagePath: 'images/ipepperflakes.jpg'),
+      Ingredient(name: 'Onion', imagePath: 'assets/images/ionion.jpg'),
       Ingredient(
-          name: 'Water Cress', imagePath: 'images/itrimmedwatercress.jpg'),
-      Ingredient(name: 'Grape', imagePath: 'images/igrape.jpg'),
-      Ingredient(name: 'Blue Cheese', imagePath: 'images/ibluecheese.jpg'),
-      Ingredient(name: 'Pecans', imagePath: 'images/ipecans.jpg'),
+          name: 'Dijon Mustard', imagePath: 'assets/images/idijonmustard.jpg'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
+      Ingredient(name: 'Pepper', imagePath: 'assets/images/ipepperflakes.jpg'),
+      Ingredient(
+          name: 'Water Cress',
+          imagePath: 'assets/images/itrimmedwatercress.jpg'),
+      Ingredient(name: 'Grape', imagePath: 'assets/images/igrape.jpg'),
+      Ingredient(
+          name: 'Blue Cheese', imagePath: 'assets/images/ibluecheese.jpg'),
+      Ingredient(name: 'Pecans', imagePath: 'assets/images/ipecans.jpg'),
     ],
     recipe:
         '1.Whisk oil, vinegar, shallot, mustard, salt and pepper in a large bowl. Add watercress and grapes and toss to coat. Add cheese and pecans and gently toss to combine.',
@@ -354,17 +387,21 @@ List<Meal> dinner = [
     percentageList: [24, 22, 1],
     ingredients: [
       Ingredient(
-          name: 'Chicken Breasts', imagePath: 'images/ichickenbreasts.jpg'),
+          name: 'Chicken Breasts',
+          imagePath: 'assets/images/ichickenbreasts.jpg'),
       Ingredient(
-          name: 'Mozzarella Cheese', imagePath: 'images/imozzarellacheese.jpg'),
-      Ingredient(name: 'Grape', imagePath: 'images/igrape.jpg'),
-      Ingredient(name: 'Tomatoes', imagePath: 'images/itomatoes.jpg'),
-      Ingredient(name: 'Basil Leaves', imagePath: 'images/ibasilleaves.jpg'),
+          name: 'Mozzarella Cheese',
+          imagePath: 'assets/images/imozzarellacheese.jpeg'),
+      Ingredient(name: 'Grape', imagePath: 'assets/images/igrape.jpg'),
+      Ingredient(name: 'Tomatoes', imagePath: 'assets/images/itomatoes.jpg'),
       Ingredient(
-          name: 'Italian Seasoning', imagePath: 'images/iitalianseasoning.jpg'),
-      Ingredient(name: 'Salts', imagePath: 'images/isalts.jpg'),
-      Ingredient(name: 'Pepper', imagePath: 'images/ipepperflakes.jpg'),
-      Ingredient(name: 'Olive Oil', imagePath: 'images/ioliveoil.jpg'),
+          name: 'Basil Leaves', imagePath: 'assets/images/ibasilleaves.jpg'),
+      Ingredient(
+          name: 'Italian Seasoning',
+          imagePath: 'assets/images/iitalianseasoning.jfif'),
+      Ingredient(name: 'Salts', imagePath: 'assets/images/isalts.jpg'),
+      Ingredient(name: 'Pepper', imagePath: 'assets/images/ipepperflakes.jpg'),
+      Ingredient(name: 'Olive Oil', imagePath: 'assets/images/ioliveoil.jpg'),
     ],
     recipe:
         '1.Preheat oven to 375 degrees F. Coat a large rimmed baking sheet with cooking spray.\n'

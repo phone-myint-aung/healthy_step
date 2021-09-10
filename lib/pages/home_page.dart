@@ -7,7 +7,6 @@ import 'package:healthy_step/constants/custom_icons.dart';
 import 'package:healthy_step/models/daily_steps.dart';
 import 'package:healthy_step/router/router.gr.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -32,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     startPrefences();
+    stepBox = Hive.box<DailyStep>('StepBox');
     initPedometer();
   }
 
@@ -39,17 +39,24 @@ class _HomePageState extends State<HomePage> {
   Future<void> startPrefences() async {
     print('start preference');
     prefs = await SharedPreferences.getInstance();
-    totalSteps = prefs.getInt('totalSteps') ?? 0;
-    savedDate = prefs.getInt('savedDate') ?? 20210906;
+    getTotalSteps();
+    getSavedDate();
     _todayStep = prefs.getInt('todayStep') ?? 0;
     setState(() {
       todayStep = _todayStep;
     });
   }
 
-  // todo
   void getTodaySteps() {
     todayStep = prefs.getInt('todayStep') ?? 0;
+  }
+
+  void getTotalSteps() {
+    totalSteps = prefs.getInt('totalSteps') ?? 0;
+  }
+
+  void getSavedDate() {
+    savedDate = prefs.getInt('savedDate') ?? 20210906;
   }
 
   Future<void> setTodayStep(int steps) async {
@@ -64,8 +71,12 @@ class _HomePageState extends State<HomePage> {
     await prefs.setInt('savedDate', date);
   }
 
+  // TODO: use date time
   String getTodayDate() {
-    return '${Jiffy(DateTime.now()).year}${Jiffy(DateTime.now()).month}${Jiffy(DateTime.now()).day}';
+    final today = DateTime.now();
+    final day = (today.day < 10) ? '0${today.day}' : '${today.day}';
+    final month = (today.month < 10) ? '0${today.month}' : '${today.month}';
+    return '${today.year}' + month + day;
   }
 
   void initPedometer() {
@@ -76,19 +87,26 @@ class _HomePageState extends State<HomePage> {
   // TODO: Pedometer listen function
   void onStepCount(StepCount event) {
     print('start counting');
-    if (totalSteps < event.steps) {
-      totalSteps = 0;
-      setTotalSteps(totalSteps);
+    if (totalSteps > event.steps) {
+      setTotalSteps(0);
+      getTotalSteps();
     }
     // TODO: someLogic error
     if (int.parse(getTodayDate()) > savedDate) {
+      print(int.parse(getTodayDate()) > savedDate);
+      stepBox.put(savedDate, DailyStep()..step = event.steps - totalSteps);
       setTotalSteps(event.steps);
-      stepBox.put(savedDate, DailyStep()..step = todayStep);
-      setTodayStep(todayStep);
-      getTodaySteps();
       setSavedDate(int.parse(getTodayDate()));
+      setTodayStep(0);
+      getTotalSteps();
+      getTodaySteps();
+      getSavedDate();
     }
+    print(savedDate);
     setState(() {
+      print(event.steps);
+      print(totalSteps);
+      print(todayStep);
       if (event.steps > 0) todayStep = event.steps - totalSteps;
     });
     setTodayStep(todayStep);
@@ -96,7 +114,7 @@ class _HomePageState extends State<HomePage> {
 
   void _onErrorCounting(error) {
     setState(() {
-      getTodayDate();
+      getTodaySteps();
     });
   }
 
@@ -229,10 +247,8 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     isStart = !isStart;
                   });
-                  // todo step start count
-                  // (isStart)
-                  //     ? _stepCountStreamSub.resume()
-                  //     : _stepCountStreamSub.pause();
+                  //TODO: step start count
+                  // (isStart) ? initPedometer() : print('pause');
                 },
                 child: (isStart)
                     ? StartPauseButton(
@@ -249,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                     ContainerWithThreeText(
                         CustomIcons.distance,
                         customBlueColor,
-                        '${(todayStep * 0.8).toStringAsPrecision(2)}',
+                        '${((todayStep * 0.8)/1000).toStringAsPrecision(2)}',
                         "km"),
                     ContainerWithThreeText(
                         CustomIcons.calorie,
@@ -257,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                         '${(todayStep * 0.04).toStringAsPrecision(2)}',
                         "cal"),
                     ContainerWithThreeText(
-                        CustomIcons.time, customRedColor, "1h 20m", "kcal"),
+                        CustomIcons.time, customRedColor, "1h 20m", "time"),
                   ],
                 ),
               ),
