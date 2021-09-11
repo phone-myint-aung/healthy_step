@@ -11,79 +11,81 @@ class FoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: Stack(
-                  alignment: AlignmentDirectional.centerStart,
-                  children: [
-                    Container(
-                      height: 270.0,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/fruitfruit.jpg'),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.6), BlendMode.dstATop),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerStart,
+                    children: [
+                      Container(
+                        height: 270.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/fruitfruit.jpg'),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.6), BlendMode.dstATop),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Healthy Diet Meals',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                      Container(
+                        padding: EdgeInsets.only(left: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Healthy Diet Meals',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            'Learn simple ways to prepare food. \n'
-                            'Keep meals preparation easy,eat more  \n'
-                            'raw foods such as salads, fruits and  \n'
-                            'vegetable juices.',
-                            style: TextStyle(
-                              height: 1.5,
-                              color: Colors.white,
-                              fontSize: 18,
+                            SizedBox(height: 16),
+                            Text(
+                              'Learn simple ways to prepare food. \n'
+                              'Keep meals preparation easy,eat more  \n'
+                              'raw foods such as salads, fruits and  \n'
+                              'vegetable juices.',
+                              style: TextStyle(
+                                height: 1.5,
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              MealCategory(
-                text: 'Breakfast',
-                icon: CustomIcons.breakfast,
-                iconColor: Color(0xFFFBC12D),
-              ),
-              MealScrollView(breakfast),
-              MealCategory(
-                text: 'Lunch',
-                icon: Icons.local_restaurant,
-                iconColor: Colors.yellow,
-              ),
-              MealScrollView(lunch),
-              MealCategory(
-                text: 'Dinner',
-                icon: CustomIcons.dinner,
-                iconColor: customGreenColor,
-              ),
-              MealScrollView(dinner),
-              SizedBox(height: 24),
-            ],
+                MealCategory(
+                  text: 'Breakfast',
+                  icon: CustomIcons.breakfast,
+                  iconColor: Color(0xFFFBC12D),
+                ),
+                MealScrollView(breakfast),
+                MealCategory(
+                  text: 'Lunch',
+                  icon: Icons.local_restaurant,
+                  iconColor: Colors.yellow,
+                ),
+                MealScrollView(lunch),
+                MealCategory(
+                  text: 'Dinner',
+                  icon: CustomIcons.dinner,
+                  iconColor: customGreenColor,
+                ),
+                MealScrollView(dinner),
+                SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),

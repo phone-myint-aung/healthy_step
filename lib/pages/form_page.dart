@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/models/user_model.dart';
 import 'package:healthy_step/router/router.gr.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({
@@ -20,11 +24,26 @@ class _FormPageState extends State<FormPage> {
   TextEditingController heightController = TextEditingController();
   bool isSI = true;
   bool isMale = true;
+  late File imagePicked;
+  bool isPicked = false;
   @override
   void initState() {
     super.initState();
     nameBox = Hive.box<UserName>('NameBox');
     nameController.addListener(() => setState(() {}));
+  }
+
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imagePicked = File(pickedFile.path);
+        isPicked = true;
+      });
+    } else {
+      isPicked = false;
+    }
   }
 
   @override
@@ -46,14 +65,22 @@ class _FormPageState extends State<FormPage> {
                   child: Stack(
                     alignment: Alignment.bottomRight,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 50,
-                      ),
-                      Icon(
-                        Icons.add,
-                        color: Colors.green,
-                        size: 35,
+                      (isPicked)
+                          ? CircleAvatar(
+                              backgroundImage: FileImage(imagePicked),
+                              radius: 50,
+                            )
+                          : CircleAvatar(
+                              radius: 50,
+                              backgroundColor: Colors.black,
+                            ),
+                      GestureDetector(
+                        onTap: () => pickImage(),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.green,
+                          size: 35,
+                        ),
                       ),
                     ],
                   ),
@@ -80,7 +107,7 @@ class _FormPageState extends State<FormPage> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 12, horizontal: 24),
                             decoration: BoxDecoration(
-                              color: Color(0xFF304878),
+                              color: customContainerColor,
                               borderRadius: BorderRadius.circular(35),
                             ),
                             child: TextField(
@@ -143,8 +170,8 @@ class _FormPageState extends State<FormPage> {
                                           EdgeInsets.symmetric(vertical: 16),
                                       decoration: BoxDecoration(
                                         color: (isSI)
-                                            ? Color(0xFF304878)
-                                            : Color(0xFF304878)
+                                            ? customContainerColor
+                                            : customContainerColor
                                                 .withOpacity(0.4),
                                         borderRadius: BorderRadius.circular(35),
                                       ),
@@ -235,8 +262,9 @@ class _FormPageState extends State<FormPage> {
                                       'Male',
                                       Colors.blue,
                                       (isMale)
-                                          ? Color(0xFF304878)
-                                          : Color(0xFF304878).withOpacity(0.4)),
+                                          ? customContainerColor
+                                          : customContainerColor
+                                              .withOpacity(0.4)),
                                 ),
                               ),
                               SizedBox(width: 20),
@@ -252,8 +280,8 @@ class _FormPageState extends State<FormPage> {
                                     'Female',
                                     Colors.pink,
                                     (isMale)
-                                        ? Color(0xFF304878).withOpacity(0.4)
-                                        : Color(0xFF304878),
+                                        ? customContainerColor.withOpacity(0.4)
+                                        : customContainerColor,
                                   ),
                                 ),
                               ),
@@ -269,7 +297,8 @@ class _FormPageState extends State<FormPage> {
                           Expanded(
                             child: TextButton(
                               onPressed: () {
-                                AutoRouter.of(context).push(MainRoute(pageIndex: 3));
+                                AutoRouter.of(context)
+                                    .push(MainRoute(pageIndex: 3));
                               },
                               child: Center(
                                   child: Text(
@@ -289,9 +318,11 @@ class _FormPageState extends State<FormPage> {
                                 if (nameController.text.isNotEmpty &&
                                     weightController.text.isNotEmpty &&
                                     heightController.text.isNotEmpty) {
-                                  if (double.tryParse(weightController.text.toString()) ==
+                                  if (double.tryParse(weightController.text
+                                              .toString()) ==
                                           null ||
-                                      double.tryParse(heightController.text.toString()) ==
+                                      double.tryParse(heightController.text
+                                              .toString()) ==
                                           null) {
                                     setState(() {
                                       weightController.clear();
@@ -299,22 +330,43 @@ class _FormPageState extends State<FormPage> {
                                     });
                                     print(
                                         'weight and height field contain some character');
-                                  } else {
-                                    await nameBox.put(
-                                      0,
-                                      UserName()
-                                        ..name = nameController.text
-                                        ..weight =
-                                            double.parse(weightController.text)
-                                        ..height =
-                                            double.parse(heightController.text)
-                                        ..isSIUnit = isSI
-                                        ..isMale = isMale,
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      bottomSnackBar(
+                                          errorText:
+                                              'Some fields must be number'),
                                     );
-                                   AutoRouter.of(context).push(MainRoute(pageIndex: 3)); 
+                                  } else {
+                                    if (isPicked) {
+                                      await nameBox.put(
+                                        0,
+                                        UserName()
+                                          ..name = nameController.text
+                                          ..weight = double.parse(
+                                              weightController.text)
+                                          ..height = double.parse(
+                                              heightController.text)
+                                          ..isSIUnit = isSI
+                                          ..isMale = isMale
+                                          ..avaterImage =
+                                              imagePicked.readAsBytesSync(),
+                                      );
+                                      AutoRouter.of(context)
+                                          .push(MainRoute(pageIndex: 3));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        bottomSnackBar(
+                                            errorText: 'Please pick an image'),
+                                      );
+                                    }
                                   }
-                                } else
+                                } else {
                                   print('fill all field');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    bottomSnackBar(
+                                        errorText: 'Please fill all fields'),
+                                  );
+                                }
                               },
                               child: Padding(
                                 padding:
@@ -347,6 +399,18 @@ class _FormPageState extends State<FormPage> {
           ),
         ),
       ),
+    );
+  }
+
+  SnackBar bottomSnackBar({required String errorText}) {
+    return SnackBar(
+      content: Text(
+        errorText,
+        style: TextStyle(color: Colors.red, fontSize: 20),
+      ),
+      backgroundColor: Color(0xFF304878),
+      elevation: 10,
+      duration: Duration(seconds: 1),
     );
   }
 }
@@ -426,7 +490,7 @@ class _TextFieldForUnitState extends State<TextFieldForUnit> {
           Container(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             decoration: BoxDecoration(
-              color: Color(0xFF304878),
+              color: customContainerColor,
               borderRadius: BorderRadius.circular(35),
             ),
             child: Row(

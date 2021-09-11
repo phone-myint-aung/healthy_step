@@ -12,88 +12,90 @@ class FoodInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        clipBehavior: Clip.none,
-        child: Column(
-          children: [
-            Container(
-              child: Container(
-                height: 220,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(
-                        MediaQuery.of(context).size.width, 200),
-                  ),
-                  image: DecorationImage(
-                    image: AssetImage(meal.bgImage),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        //ToDo: exit
-                        AutoRouter.of(context).push(MainRoute(pageIndex: 2));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 20, top: 20),
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black38,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            size: 26,
-                          ),
-                        ),
-                      ),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Column(
+            children: [
+              Container(
+                child: Container(
+                  height: 220,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.elliptical(
+                          MediaQuery.of(context).size.width, 200),
                     ),
-                    Positioned(
-                      bottom: -40,
-                      left: 0,
-                      right: 0,
-                      child: Center(
+                    image: DecorationImage(
+                      image: AssetImage(meal.bgImage),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          //ToDo: exit
+                          AutoRouter.of(context).push(MainRoute(pageIndex: 2));
+                        },
                         child: Container(
-                          width: 120,
-                          height: 120,
+                          margin: EdgeInsets.only(left: 20, top: 20),
+                          width: 50,
+                          height: 50,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),
-                            image: DecorationImage(
-                              image: AssetImage(meal.image),
-                              fit: BoxFit.cover,
+                            shape: BoxShape.circle,
+                            color: Colors.black38,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 26,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        bottom: -40,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80),
+                              image: DecorationImage(
+                                image: AssetImage(meal.image),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 50),
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Center(
-                child: Text(
-                  meal.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 28, fontWeight: FontWeight.w600, height: 1.2),
+              Container(
+                margin: EdgeInsets.only(top: 50),
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Center(
+                  child: Text(
+                    meal.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 28, fontWeight: FontWeight.w600, height: 1.2),
+                  ),
                 ),
               ),
-            ),
-            ThreePercentageCircle(
-              listPercentage: meal.percentageList,
-            ),
-            BottomContainer(meal),
-          ],
+              ThreePercentageCircle(
+                listPercentage: meal.percentageList,
+              ),
+              BottomContainer(meal),
+            ],
+          ),
         ),
       ),
     );

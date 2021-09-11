@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:hive/hive.dart';
 
 part 'user_model.g.dart';
@@ -14,4 +16,6 @@ class UserName extends HiveObject {
   late bool isSIUnit;
   @HiveField(4)
   late bool isMale;
+  @HiveField(5)
+  late Uint8List avaterImage;
 }

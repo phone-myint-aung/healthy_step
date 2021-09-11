@@ -21,13 +21,14 @@ class UserNameAdapter extends TypeAdapter<UserName> {
       ..weight = fields[1] as double
       ..height = fields[2] as double
       ..isSIUnit = fields[3] as bool
-      ..isMale = fields[4] as bool;
+      ..isMale = fields[4] as bool
+      ..avaterImage = fields[5] as Uint8List;
   }
 
   @override
   void write(BinaryWriter writer, UserName obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -37,7 +38,9 @@ class UserNameAdapter extends TypeAdapter<UserName> {
       ..writeByte(3)
       ..write(obj.isSIUnit)
       ..writeByte(4)
-      ..write(obj.isMale);
+      ..write(obj.isMale)
+      ..writeByte(5)
+      ..write(obj.avaterImage);
   }
 
   @override

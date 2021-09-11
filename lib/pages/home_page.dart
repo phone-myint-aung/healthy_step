@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
     await prefs.setInt('savedDate', date);
   }
 
-  // TODO: use date time
   String getTodayDate() {
     final today = DateTime.now();
     final day = (today.day < 10) ? '0${today.day}' : '${today.day}';
@@ -249,7 +248,7 @@ class _HomePageState extends State<HomePage> {
                     isStart = !isStart;
                   });
                   //TODO: step start count
-                  (isStart) ?  initPedometer() : _streamSubscription?.cancel();
+                  (isStart) ? initPedometer() : _streamSubscription?.cancel();
                 },
                 child: (isStart)
                     ? StartPauseButton(
@@ -264,17 +263,23 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ContainerWithThreeText(
-                        CustomIcons.distance,
-                        customBlueColor,
-                        '${((todayStep * 0.8) / 1000).toStringAsPrecision(2)}',
-                        "km"),
+                      CustomIcons.distance,
+                      customBlueColor,
+                      '${((todayStep * 0.8) / 1000).toStringAsPrecision(2)}',
+                      "km",
+                    ),
                     ContainerWithThreeText(
-                        CustomIcons.calorie,
-                        Color(0xFFFF9641),
-                        '${(todayStep * 0.04).toStringAsPrecision(2)}',
-                        "cal"),
+                      CustomIcons.calorie,
+                      Color(0xFFFF9641),
+                      '${(todayStep * 0.04).toStringAsPrecision(2)}',
+                      "cal",
+                    ),
                     ContainerWithThreeText(
-                        CustomIcons.time, customRedColor, "1h 20m", "time"),
+                      CustomIcons.time,
+                      customRedColor,
+                      "1h 20m",
+                      "time",
+                    ),
                   ],
                 ),
               ),

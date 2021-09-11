@@ -75,16 +75,19 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       CircleAvatar(
                         radius: 50,
-                        backgroundColor: Colors.black,
+                        backgroundImage: MemoryImage(user.avaterImage),
                       ),
-                      Icon(
-                        CustomIcons.photo,
-                        color: customGreenColor,
-                        size: 30,
+                      GestureDetector(
+                        onTap: () => AutoRouter.of(context).push(FormRoute()),
+                        child: Icon(
+                          CustomIcons.photo,
+                          color: customGreenColor,
+                          size: 30,
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 3),
+                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

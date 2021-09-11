@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:healthy_step/main.dart';
 import 'package:healthy_step/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
@@ -21,6 +24,9 @@ class _SignInPageState extends State<SignInPage> {
   bool isSI = true;
   bool isMale = true;
   late final prefs;
+  late File imagePicked;
+  bool isPicked = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +50,19 @@ class _SignInPageState extends State<SignInPage> {
     await prefs.setBool('isOnboardScreen', false);
   }
 
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imagePicked = File(pickedFile.path);
+        isPicked = true;
+      });
+    } else {
+      isPicked = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,14 +76,22 @@ class _SignInPageState extends State<SignInPage> {
                   child: Stack(
                     alignment: Alignment.bottomRight,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 50,
-                      ),
-                      Icon(
-                        Icons.add,
-                        color: Colors.green,
-                        size: 35,
+                      (isPicked)
+                          ? CircleAvatar(
+                              backgroundImage: FileImage(imagePicked),
+                              radius: 50,
+                            )
+                          : CircleAvatar(
+                              backgroundColor: Colors.black,
+                              radius: 50,
+                            ),
+                      GestureDetector(
+                        onTap: () => pickImage(),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.green,
+                          size: 35,
+                        ),
                       ),
                     ],
                   ),
@@ -296,28 +323,48 @@ class _SignInPageState extends State<SignInPage> {
                                     });
                                     print(
                                         'weight and height field contain some character');
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      bottomSnackBar(
+                                          errorText:
+                                              'Some fields must be number'),
+                                    );
                                   } else {
-                                    await nameBox.put(
-                                      0,
-                                      UserName()
-                                        ..name = nameController.text
-                                        ..weight =
-                                            double.parse(weightController.text)
-                                        ..height =
-                                            double.parse(heightController.text)
-                                        ..isSIUnit = isSI
-                                        ..isMale = isMale,
-                                    );
-                                    setBoolOnBoardScreen();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MyApp(),
-                                      ),
-                                    );
+                                    if (isPicked) {
+                                      await nameBox.put(
+                                        0,
+                                        UserName()
+                                          ..name = nameController.text
+                                          ..weight = double.parse(
+                                              weightController.text)
+                                          ..height = double.parse(
+                                              heightController.text)
+                                          ..isSIUnit = isSI
+                                          ..isMale = isMale
+                                          ..avaterImage =
+                                              imagePicked.readAsBytesSync(),
+                                      );
+                                      setBoolOnBoardScreen();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MyApp(),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        bottomSnackBar(
+                                            errorText: 'Please pick an image'),
+                                      );
+                                    }
                                   }
-                                } else
+                                } else {
                                   print('fill all field');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    bottomSnackBar(
+                                        errorText: 'Please fill all fields'),
+                                  );
+                                }
                               },
                               child: Padding(
                                 padding:
@@ -350,6 +397,18 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
       ),
+    );
+  }
+
+  SnackBar bottomSnackBar({required String errorText}) {
+    return SnackBar(
+      content: Text(
+        errorText,
+        style: TextStyle(color: Colors.red, fontSize: 20),
+      ),
+      backgroundColor: Color(0xFF304878),
+      elevation: 10,
+      duration: Duration(seconds: 1),
     );
   }
 }
