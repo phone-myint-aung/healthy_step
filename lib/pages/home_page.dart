@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isStart = false;
   late Stream<StepCount> _stepCountStream;
+  StreamSubscription<StepCount>? _streamSubscription;
   int todayStep = 0;
   late int _todayStep;
   late int totalSteps;
@@ -32,7 +33,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     startPrefences();
     stepBox = Hive.box<DailyStep>('StepBox');
-    initPedometer();
   }
 
   // todo getprefs total steps
@@ -81,7 +81,8 @@ class _HomePageState extends State<HomePage> {
 
   void initPedometer() {
     _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(onStepCount, onError: _onErrorCounting);
+    _streamSubscription =
+        _stepCountStream.listen(onStepCount, onError: _onErrorCounting);
   }
 
   // TODO: Pedometer listen function
@@ -189,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                         RangePointer(
                           width: 30,
                           value: todayStep.toDouble(),
-                          cornerStyle: CornerStyle.startCurve,
+                          cornerStyle: CornerStyle.bothCurve,
                           color: customGreenColor,
                         ),
                         WidgetPointer(
@@ -248,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                     isStart = !isStart;
                   });
                   //TODO: step start count
-                  // (isStart) ? initPedometer() : print('pause');
+                  (isStart) ?  initPedometer() : _streamSubscription?.cancel();
                 },
                 child: (isStart)
                     ? StartPauseButton(
@@ -265,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                     ContainerWithThreeText(
                         CustomIcons.distance,
                         customBlueColor,
-                        '${((todayStep * 0.8)/1000).toStringAsPrecision(2)}',
+                        '${((todayStep * 0.8) / 1000).toStringAsPrecision(2)}',
                         "km"),
                     ContainerWithThreeText(
                         CustomIcons.calorie,
