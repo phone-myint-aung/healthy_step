@@ -307,7 +307,6 @@ class _SignInPageState extends State<SignInPage> {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () async {
-                                // TODO: button pressed
                                 if (nameController.text.isNotEmpty &&
                                     weightController.text.isNotEmpty &&
                                     heightController.text.isNotEmpty) {

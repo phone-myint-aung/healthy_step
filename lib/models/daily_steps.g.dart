@@ -16,7 +16,7 @@ class DailyStepAdapter extends TypeAdapter<DailyStep> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return DailyStep()..step = fields[0] as int;
+    return DailyStep()..step = fields[0] == null ? 0 : fields[0] as int;
   }
 
   @override

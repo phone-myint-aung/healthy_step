@@ -4,6 +4,6 @@ part 'daily_steps.g.dart';
 
 @HiveType(typeId: 1)
 class DailyStep extends HiveObject {
-  @HiveField(0)
+  @HiveField(0, defaultValue: 0)
   late int step;
 }

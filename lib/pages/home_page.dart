@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthy_step/constants/colors.dart';
 import 'package:healthy_step/constants/custom_icons.dart';
 import 'package:healthy_step/models/daily_steps.dart';
+import 'package:healthy_step/models/user_model.dart';
 import 'package:healthy_step/router/router.gr.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pedometer/pedometer.dart';
@@ -28,11 +29,15 @@ class _HomePageState extends State<HomePage> {
   late final prefs;
   late int savedDate;
   late Box<DailyStep> stepBox;
+  late Box<UserName> nameBox;
+  late UserName user;
   @override
   void initState() {
     super.initState();
     startPrefences();
     stepBox = Hive.box<DailyStep>('StepBox');
+    nameBox = Hive.box<UserName>('NameBox');
+    user = nameBox.getAt(0) as UserName;
   }
 
   // todo getprefs total steps
@@ -56,7 +61,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getSavedDate() {
-    savedDate = prefs.getInt('savedDate') ?? 20210906;
+    savedDate = prefs.getInt('savedDate') ?? (int.parse(getTodayDate()) - 1);
   }
 
   Future<void> setTodayStep(int steps) async {
@@ -91,7 +96,6 @@ class _HomePageState extends State<HomePage> {
       setTotalSteps(0);
       getTotalSteps();
     }
-    // TODO: someLogic error
     if (int.parse(getTodayDate()) > savedDate) {
       print(int.parse(getTodayDate()) > savedDate);
       stepBox.put(savedDate, DailyStep()..step = event.steps - totalSteps);
@@ -127,163 +131,166 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Welcome,',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          'Steven',
-                          style: TextStyle(
-                              fontSize: 36, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        AutoRouter.of(context).push(MainRoute(pageIndex: 3));
-                      },
-                      child: CircleAvatar(
-                        radius: 25,
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome,',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            user.name,
+                            style: TextStyle(
+                                fontSize: 36, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: () {
+                          AutoRouter.of(context).push(MainRoute(pageIndex: 3));
+                        },
+                        child: CircleAvatar(
+                          radius: 25,
+                          backgroundImage: MemoryImage(user.avaterImage),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: SfRadialGauge(
-                  animationDuration: 1000,
-                  enableLoadingAnimation: true,
-                  axes: [
-                    RadialAxis(
-                      minimum: 0,
-                      maximum: 6000,
-                      maximumLabels: 2,
-                      labelOffset: 20,
-                      startAngle: 130,
-                      endAngle: 50,
-                      labelsPosition: ElementsPosition.outside,
-                      axisLineStyle: AxisLineStyle(
-                        color:
-                            Colors.white.withOpacity(.6), // Color(0xFFE5E5E5),
-                        cornerStyle: CornerStyle.bothCurve,
-                        thickness: 30,
-                      ),
-                      axisLabelStyle:
-                          GaugeTextStyle(fontWeight: FontWeight.bold),
-                      pointers: [
-                        RangePointer(
-                          width: 30,
-                          value: todayStep.toDouble(),
+                Container(
+                  child: SfRadialGauge(
+                    animationDuration: 1000,
+                    enableLoadingAnimation: true,
+                    axes: [
+                      RadialAxis(
+                        minimum: 0,
+                        maximum: 6000,
+                        maximumLabels: 2,
+                        labelOffset: 20,
+                        startAngle: 130,
+                        endAngle: 50,
+                        labelsPosition: ElementsPosition.outside,
+                        axisLineStyle: AxisLineStyle(
+                          color: Colors.white
+                              .withOpacity(.6), // Color(0xFFE5E5E5),
                           cornerStyle: CornerStyle.bothCurve,
-                          color: customGreenColor,
+                          thickness: 30,
                         ),
-                        WidgetPointer(
-                          child: Container(
+                        axisLabelStyle:
+                            GaugeTextStyle(fontWeight: FontWeight.bold),
+                        pointers: [
+                          RangePointer(
                             width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border:
-                                  Border.all(color: customGreenColor, width: 7),
-                              color: Colors.white,
+                            value: todayStep.toDouble(),
+                            cornerStyle: CornerStyle.bothCurve,
+                            color: customGreenColor,
+                          ),
+                          WidgetPointer(
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: customGreenColor, width: 7),
+                                color: Colors.white,
+                              ),
                             ),
+                            value: todayStep.toDouble(),
                           ),
-                          value: todayStep.toDouble(),
-                        ),
-                      ],
-                      annotations: [
-                        GaugeAnnotation(
-                          widget: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                todayStep.toString(),
-                                style: TextStyle(
-                                  fontSize: 46,
-                                  fontWeight: FontWeight.bold,
+                        ],
+                        annotations: [
+                          GaugeAnnotation(
+                            widget: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  todayStep.toString(),
+                                  style: TextStyle(
+                                    fontSize: 46,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Steps',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w300,
+                                SizedBox(height: 10),
+                                Text(
+                                  'Steps',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 20),
-                              Icon(
-                                FontAwesomeIcons.running,
-                                size: 60,
-                              ),
-                            ],
+                                SizedBox(height: 20),
+                                Icon(
+                                  FontAwesomeIcons.running,
+                                  size: 60,
+                                ),
+                              ],
+                            ),
+                            positionFactor: 0.3,
+                            angle: 90,
                           ),
-                          positionFactor: 0.3,
-                          angle: 90,
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isStart = !isStart;
-                  });
-                  //TODO: step start count
-                  (isStart) ? initPedometer() : _streamSubscription?.cancel();
-                },
-                child: (isStart)
-                    ? StartPauseButton(
-                        Icons.pause, Colors.white.withOpacity(.6), 'Pause')
-                    : StartPauseButton(
-                        Icons.play_arrow, customBlueColor, 'Start'),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ContainerWithThreeText(
-                      CustomIcons.distance,
-                      customBlueColor,
-                      '${((todayStep * 0.8) / 1000).toStringAsPrecision(2)}',
-                      "km",
-                    ),
-                    ContainerWithThreeText(
-                      CustomIcons.calorie,
-                      Color(0xFFFF9641),
-                      '${(todayStep * 0.04).toStringAsPrecision(2)}',
-                      "cal",
-                    ),
-                    ContainerWithThreeText(
-                      CustomIcons.time,
-                      customRedColor,
-                      "1h 20m",
-                      "time",
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isStart = !isStart;
+                    });
+                    //TODO: step start count
+                    (isStart) ? initPedometer() : _streamSubscription?.cancel();
+                  },
+                  child: (isStart)
+                      ? StartPauseButton(
+                          Icons.pause, Colors.white.withOpacity(.6), 'Pause')
+                      : StartPauseButton(
+                          Icons.play_arrow, customBlueColor, 'Start'),
                 ),
-              ),
-            ],
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ContainerWithThreeText(
+                        CustomIcons.distance,
+                        customBlueColor,
+                        '${((todayStep * 0.8) / 1000).toStringAsPrecision(2)}',
+                        "km",
+                      ),
+                      ContainerWithThreeText(
+                        CustomIcons.calorie,
+                        Color(0xFFFF9641),
+                        '${(todayStep * 0.04).toStringAsPrecision(2)}',
+                        "cal",
+                      ),
+                      ContainerWithThreeText(
+                        CustomIcons.time,
+                        customRedColor,
+                        "1h 20m",
+                        "time",
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
