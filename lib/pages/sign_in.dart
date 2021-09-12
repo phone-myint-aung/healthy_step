@@ -343,7 +343,7 @@ class _SignInPageState extends State<SignInPage> {
                                               imagePicked.readAsBytesSync(),
                                       );
                                       setBoolOnBoardScreen();
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => MyApp(),

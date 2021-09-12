@@ -50,200 +50,202 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              child: Row(
-                children: [
-                  Text(
-                    'Profile',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
-                ],
+      child: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                child: Row(
+                  children: [
+                    Text(
+                      'Profile',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: MemoryImage(user.avaterImage),
-                      ),
-                      GestureDetector(
-                        onTap: () => AutoRouter.of(context).push(FormRoute()),
-                        child: Icon(
-                          CustomIcons.photo,
-                          color: customGreenColor,
-                          size: 30,
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: MemoryImage(user.avaterImage),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        user.name,
-                        style: TextStyle(fontSize: 36),
-                      ),
-                      SizedBox(width: 5),
-                      GestureDetector(
-                        onTap: () {
-                          AutoRouter.of(context).push(FormRoute());
-                        },
-                        child: Icon(
-                          CustomIcons.edit,
-                          size: 40,
-                          color: Colors.green,
+                        GestureDetector(
+                          onTap: () => AutoRouter.of(context).push(FormRoute()),
+                          child: Icon(
+                            CustomIcons.photo,
+                            color: customGreenColor,
+                            size: 30,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Container(
-              constraints: BoxConstraints.expand(height: 100),
-              margin: EdgeInsets.symmetric(vertical: 12),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF304878),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Weight:',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(width: 15),
-                  Text(
-                    user.weight.toString(),
-                    style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.ideographic,
-                    children: [
-                      Text(
-                        (user.isSIUnit) ? 'kg' : 'lbs',
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.right,
-                      ),
-                      SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
-                          AutoRouter.of(context).push(FormRoute());
-                        },
-                        child: Icon(
-                          CustomIcons.edit,
-                          size: 40,
-                          color: Colors.green,
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          user.name,
+                          style: TextStyle(fontSize: 36),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              constraints: BoxConstraints.expand(height: 100),
-              margin: EdgeInsets.symmetric(vertical: 12),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF304878),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Height:',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(width: 15),
-                  Text(
-                    user.height.toString(),
-                    style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.ideographic,
-                    children: [
-                      Text(
-                        (user.isSIUnit) ? 'cm' : 'ft',
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.right,
-                      ),
-                      SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
-                          AutoRouter.of(context).push(FormRoute());
-                        },
-                        child: Icon(
-                          CustomIcons.edit,
-                          size: 40,
-                          color: Colors.green,
+                        SizedBox(width: 5),
+                        GestureDetector(
+                          onTap: () {
+                            AutoRouter.of(context).push(FormRoute());
+                          },
+                          child: Icon(
+                            CustomIcons.edit,
+                            size: 40,
+                            color: Colors.green,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              constraints: BoxConstraints.expand(height: 250),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(35),
-                color: Color(0xFF304878),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'BMI',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        calculateBMI(user),
-                        style: TextStyle(
-                          fontSize: 42,
-                          fontWeight: FontWeight.bold,
+              Container(
+                constraints: BoxConstraints.expand(height: 100),
+                margin: EdgeInsets.symmetric(vertical: 12),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Color(0xFF304878),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Weight:',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      user.weight.toString(),
+                      style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.ideographic,
+                      children: [
+                        Text(
+                          (user.isSIUnit) ? 'kg' : 'lbs',
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.right,
                         ),
-                      ),
-                      Text(
-                        checkCondition(calculateBMI(user)),
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      SizedBox(height: 16),
-                      BmiGraph(calculateBMI(user)),
-                    ],
-                  ),
-                ],
+                        SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () {
+                            AutoRouter.of(context).push(FormRoute());
+                          },
+                          child: Icon(
+                            CustomIcons.edit,
+                            size: 40,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Container(
+                constraints: BoxConstraints.expand(height: 100),
+                margin: EdgeInsets.symmetric(vertical: 12),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Color(0xFF304878),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Height:',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      user.height.toString(),
+                      style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.ideographic,
+                      children: [
+                        Text(
+                          (user.isSIUnit) ? 'cm' : 'ft',
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.right,
+                        ),
+                        SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () {
+                            AutoRouter.of(context).push(FormRoute());
+                          },
+                          child: Icon(
+                            CustomIcons.edit,
+                            size: 40,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                constraints: BoxConstraints.expand(height: 250),
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(35),
+                  color: Color(0xFF304878),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'BMI',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          calculateBMI(user),
+                          style: TextStyle(
+                            fontSize: 42,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          checkCondition(calculateBMI(user)),
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        SizedBox(height: 16),
+                        BmiGraph(calculateBMI(user)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

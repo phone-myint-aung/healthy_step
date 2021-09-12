@@ -107,10 +107,10 @@ class _HomePageState extends State<HomePage> {
       getSavedDate();
     }
     print(savedDate);
+    print(event.steps);
+    print(totalSteps);
+    print(todayStep);
     setState(() {
-      print(event.steps);
-      print(totalSteps);
-      print(todayStep);
       if (event.steps > 0) todayStep = event.steps - totalSteps;
     });
     setTodayStep(todayStep);

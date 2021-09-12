@@ -31,7 +31,7 @@ class _ReportPageState extends State<ReportPage> {
               ),
               SizedBox(height: 8),
               GraphWithContainer(
-                titleText: 'Week',
+                titleText: 'Day',
                 childWidget: GraphForWeek(),
               ),
               GraphWithContainer(
@@ -280,7 +280,7 @@ class _GraphForWeekState extends State<GraphForWeek> {
 
   @override
   Widget build(BuildContext context) {
-    selectedDate = (int.parse(getTodayDate()) - 1);
+    selectedDate = (int.parse(getTodayDate()) - 6);
     return Expanded(
       child: Container(
         child: LineChart(
@@ -393,7 +393,7 @@ class _GraphForWeekState extends State<GraphForWeek> {
                 showTitle: true,
                 titleText: 'Day',
                 reservedSize: 20,
-                margin: 18,
+                margin: 8,
                 textStyle: TextStyle(fontWeight: FontWeight.bold),
               ),
               leftTitle: AxisTitle(
@@ -419,6 +419,7 @@ class _GraphForWeekState extends State<GraphForWeek> {
                   const Color(0xff02d39a),
                 ],
                 barWidth: 4,
+                curveSmoothness: 0.001,
                 isStrokeCapRound: true,
                 dotData: FlDotData(show: false),
                 belowBarData: BarAreaData(

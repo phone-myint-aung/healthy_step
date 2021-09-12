@@ -44,11 +44,11 @@ class _OnboardPageState extends State<OnboardPage> {
         done: Text('Continue', style: TextStyle(fontSize: 22)),
         globalBackgroundColor: customBackgroundColor,
         onSkip: () {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => SignInPage()));
         },
         onDone: () {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => SignInPage()));
         },
         pages: [

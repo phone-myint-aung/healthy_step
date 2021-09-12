@@ -36,6 +36,7 @@ class _SplashPageState extends State<SplashPage> {
         primaryColor: customBackgroundColor,
         scaffoldBackgroundColor: customBackgroundColor,
       ),
+      debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
         splash: Image.asset('assets/images/AppLogo.png'),
         nextScreen: (isOnboardScreen) ? OnboardPage() : MyApp(),
