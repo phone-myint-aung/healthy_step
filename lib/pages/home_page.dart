@@ -212,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                           RangePointer(
                             width: 30,
                             value: todayStep.toDouble(),
-                            cornerStyle: CornerStyle.bothCurve,
+                            cornerStyle: CornerStyle.startCurve,
                             color: customGreenColor,
                           ),
                           WidgetPointer(
