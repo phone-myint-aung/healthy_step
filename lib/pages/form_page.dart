@@ -328,8 +328,6 @@ class _FormPageState extends State<FormPage> {
                                       weightController.clear();
                                       heightController.clear();
                                     });
-                                    print(
-                                        'weight and height field contain some character');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       bottomSnackBar(
                                           errorText:
@@ -361,7 +359,6 @@ class _FormPageState extends State<FormPage> {
                                     }
                                   }
                                 } else {
-                                  print('fill all field');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     bottomSnackBar(
                                         errorText: 'Please fill all fields'),

@@ -10,6 +10,7 @@ import 'package:healthy_step/router/router.gr.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,6 +32,9 @@ class _HomePageState extends State<HomePage> {
   late Box<DailyStep> stepBox;
   late Box<UserName> nameBox;
   late UserName user;
+  final StopWatchTimer _stopWatchTimer =
+      StopWatchTimer(mode: StopWatchMode.countUp);
+
   @override
   void initState() {
     super.initState();
@@ -255,6 +259,9 @@ class _HomePageState extends State<HomePage> {
                     });
                     //TODO: step start count
                     (isStart) ? initPedometer() : _streamSubscription?.cancel();
+                    (isStart)
+                        ? _stopWatchTimer.onExecute.add(StopWatchExecute.start)
+                        : _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
                   },
                   child: (isStart)
                       ? StartPauseButton(
@@ -280,11 +287,57 @@ class _HomePageState extends State<HomePage> {
                         '${(todayStep * 0.04).toStringAsPrecision(2)}',
                         "cal",
                       ),
-                      ContainerWithThreeText(
-                        CustomIcons.time,
-                        customRedColor,
-                        "1h 20m",
-                        "time",
+                      Expanded(
+                        child: Container(
+                          height: 140,
+                          margin: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(35),
+                            color: Color(0xFF304878),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                CustomIcons.time,
+                                size: 28,
+                                color: customRedColor,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              // TODO: STREAM BUILDER
+                              StreamBuilder<int>(
+                                stream: _stopWatchTimer.rawTime,
+                                initialData: _stopWatchTimer.rawTime.value,
+                                builder: (context, snap) {
+                                  final value = snap.data!;
+                                  final displayTime =
+                                      StopWatchTimer.getDisplayTime(
+                                    value,
+                                    hours: true,
+                                    minute: true,
+                                    hoursRightBreak: ':',
+                                    second: false,
+                                    milliSecond: false,
+                                  );
+                                  return Text(
+                                    displayTime,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
+                              ),
+                              Text(
+                                'time',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),

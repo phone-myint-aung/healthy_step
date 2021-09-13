@@ -410,7 +410,6 @@ class _GraphForWeekState extends State<GraphForWeek> {
                   // TODO: change date key
                   final userDailyStep = stepBox.get(selectedDate + index,
                       defaultValue: DailyStep()..step = 0) as DailyStep;
-                  print(userDailyStep.step);
                   return FlSpot(index.toDouble(), userDailyStep.step / 1000);
                 }),
                 isCurved: true,

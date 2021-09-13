@@ -320,8 +320,6 @@ class _SignInPageState extends State<SignInPage> {
                                       weightController.clear();
                                       heightController.clear();
                                     });
-                                    print(
-                                        'weight and height field contain some character');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       bottomSnackBar(
                                           errorText:
@@ -358,7 +356,6 @@ class _SignInPageState extends State<SignInPage> {
                                     }
                                   }
                                 } else {
-                                  print('fill all field');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     bottomSnackBar(
                                         errorText: 'Please fill all fields'),
