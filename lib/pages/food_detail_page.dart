@@ -38,7 +38,7 @@ class FoodInfoPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           //ToDo: exit
-                          AutoRouter.of(context).push(MainRoute(pageIndex: 2));
+                          AutoRouter.of(context).pop();
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 20, top: 20),

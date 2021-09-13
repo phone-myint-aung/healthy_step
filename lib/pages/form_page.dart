@@ -297,8 +297,7 @@ class _FormPageState extends State<FormPage> {
                           Expanded(
                             child: TextButton(
                               onPressed: () {
-                                AutoRouter.of(context)
-                                    .push(MainRoute(pageIndex: 3));
+                                AutoRouter.of(context).pop();
                               },
                               child: Center(
                                   child: Text(
@@ -348,8 +347,7 @@ class _FormPageState extends State<FormPage> {
                                           ..avaterImage =
                                               imagePicked.readAsBytesSync(),
                                       );
-                                      AutoRouter.of(context)
-                                          .push(MainRoute(pageIndex: 3));
+                                      AutoRouter.of(context).pop();
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
