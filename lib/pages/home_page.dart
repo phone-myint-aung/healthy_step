@@ -9,6 +9,7 @@ import 'package:healthy_step/models/user_model.dart';
 import 'package:healthy_step/router/router.gr.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   late Box<DailyStep> stepBox;
   late Box<UserName> nameBox;
   late UserName user;
+  late bool isActivityPermission = false;
   final StopWatchTimer _stopWatchTimer =
       StopWatchTimer(mode: StopWatchMode.countUp);
 
@@ -124,6 +126,17 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       getTodaySteps();
     });
+  }
+
+  Future<bool> checkAcitivityPermission() async {
+    var status = await Permission.camera.status;
+    if (!status.isGranted) {
+      PermissionStatus permissionStatus =
+          await Permission.activityRecognition.request();
+      return permissionStatus.isGranted;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -253,15 +266,26 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isStart = !isStart;
-                    });
-                    //TODO: step start count
-                    (isStart) ? initPedometer() : _streamSubscription?.cancel();
-                    (isStart)
-                        ? _stopWatchTimer.onExecute.add(StopWatchExecute.start)
-                        : _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
+                  onTap: () async {
+                    isActivityPermission = await checkAcitivityPermission();
+                    if (isActivityPermission) {
+                      setState(() {
+                        isStart = !isStart;
+                      });
+                      (isStart)
+                          ? initPedometer()
+                          : _streamSubscription?.cancel();
+                      (isStart)
+                          ? _stopWatchTimer.onExecute
+                              .add(StopWatchExecute.start)
+                          : _stopWatchTimer.onExecute
+                              .add(StopWatchExecute.stop);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        bottomSnackBar(
+                            errorText: 'Please allow activity permission'),
+                      );
+                    }
                   },
                   child: (isStart)
                       ? StartPauseButton(
@@ -347,6 +371,18 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  SnackBar bottomSnackBar({required String errorText}) {
+    return SnackBar(
+      content: Text(
+        errorText,
+        style: TextStyle(color: Colors.red, fontSize: 20),
+      ),
+      backgroundColor: Color(0xFF304878),
+      elevation: 10,
+      duration: Duration(seconds: 1),
     );
   }
 }
