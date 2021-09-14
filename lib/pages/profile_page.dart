@@ -40,11 +40,15 @@ class _ProfilePageState extends State<ProfilePage> {
       return ' ';
   }
 
+  void getUserData() {
+    nameBox = Hive.box<UserName>('NameBox');
+    user = nameBox.getAt(0) as UserName;
+  }
+
   @override
   void initState() {
     super.initState();
-    nameBox = Hive.box<UserName>('NameBox');
-    user = nameBox.getAt(0) as UserName;
+    getUserData();
   }
 
   @override
@@ -62,7 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       'Profile',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -79,7 +84,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           backgroundImage: MemoryImage(user.avaterImage),
                         ),
                         GestureDetector(
-                          onTap: () => AutoRouter.of(context).push(FormRoute()),
+                          onTap: () => AutoRouter.of(context)
+                              .push(FormRoute())
+                              .then((value) {
+                            setState(() {
+                              getUserData();
+                            });
+                          }),
                           child: Icon(
                             CustomIcons.photo,
                             color: customGreenColor,
@@ -99,7 +110,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 5),
                         GestureDetector(
                           onTap: () {
-                            AutoRouter.of(context).push(FormRoute());
+                            AutoRouter.of(context)
+                                .push(FormRoute())
+                                .then((value) {
+                              setState(() {
+                                getUserData();
+                              });
+                            });
                           },
                           child: Icon(
                             CustomIcons.edit,
@@ -127,13 +144,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       'Weight:',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.left,
                     ),
                     SizedBox(width: 15),
                     Text(
                       user.weight.toString(),
-                      style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -147,7 +166,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 20),
                         GestureDetector(
                           onTap: () {
-                            AutoRouter.of(context).push(FormRoute());
+                            AutoRouter.of(context)
+                                .push(FormRoute())
+                                .then((value) {
+                              setState(() {
+                                getUserData();
+                              });
+                            });
                           },
                           child: Icon(
                             CustomIcons.edit,
@@ -174,13 +199,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       'Height:',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.left,
                     ),
                     SizedBox(width: 15),
                     Text(
                       user.height.toString(),
-                      style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -194,7 +221,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(width: 20),
                         GestureDetector(
                           onTap: () {
-                            AutoRouter.of(context).push(FormRoute());
+                            AutoRouter.of(context)
+                                .push(FormRoute())
+                                .then((value) {
+                              setState(() {
+                                getUserData();
+                              });
+                            });
                           },
                           child: Icon(
                             CustomIcons.edit,
@@ -221,7 +254,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       'BMI',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
