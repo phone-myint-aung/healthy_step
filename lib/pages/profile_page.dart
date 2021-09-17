@@ -120,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                           child: Icon(
                             CustomIcons.edit,
-                            size: 40,
+                            size: 30,
                             color: Colors.green,
                           ),
                         ),

@@ -126,13 +126,13 @@ class GraphForMonth extends StatelessWidget {
                 getTitles: (value) {
                   switch (value.toInt()) {
                     case 1:
-                      return 'Sep\n7';
+                      return 'Aug\n7';
                     case 2:
-                      return 'Sep\n14';
+                      return 'Aug\n14';
                     case 3:
-                      return 'Sep\n21';
+                      return 'Aug\n21';
                     case 4:
-                      return 'Sep\n27';
+                      return 'Aug\n27';
                   }
                   return '';
                 },
