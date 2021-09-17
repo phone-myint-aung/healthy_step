@@ -225,9 +225,9 @@ class GraphForMonth extends StatelessWidget {
               LineChartBarData(
                 spots: [
                   FlSpot(1, 2),
-                  FlSpot(2, 3.2),
-                  FlSpot(3, 4.5),
-                  FlSpot(4, 1.5),
+                  FlSpot(2, 3),
+                  FlSpot(3, 2),
+                  FlSpot(4, 1),
                 ],
                 isCurved: true,
                 colors: [
@@ -280,7 +280,7 @@ class _GraphForWeekState extends State<GraphForWeek> {
 
   @override
   Widget build(BuildContext context) {
-    selectedDate = (int.parse(getTodayDate()) - 6);
+    selectedDate = (int.parse(getTodayDate()) - 7);
     return Expanded(
       child: Container(
         child: LineChart(
